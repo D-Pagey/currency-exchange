@@ -6,6 +6,8 @@ import * as S from './styles';
 const App: FC = () => {
     const [rates, setRates] = useState<RatesType>();
     const [timestamp, setTimestamp] = useState();
+    const [USDInput, setUSDInput] = useState<number>();
+    const [EURInput, setEURInput] = useState<number>();
 
     const fetchData = async () => {
         const { data } = await axios.get(
@@ -20,14 +22,37 @@ const App: FC = () => {
         fetchData();
     }, []);
 
+    const handleUSDChange = (event: any): void => {
+        setUSDInput(event.target.value);
+        setEURInput(event.target.value * rates!.EUR);
+    };
+
+    const handleEURChange = (event: any): void => {
+        setEURInput(event.target.value);
+        setUSDInput(event.target.value / rates!.EUR);
+    };
+
     return (
         <div>
             <S.GlobalStyle />
             <h1>Revolut Currency Exchange</h1>
 
-            <h3>
-                $1 can be exchanged into €{rates?.EUR} or £{rates?.GBP}
-            </h3>
+            {rates && (
+                <>
+                    <h3>
+                        $1 can be exchanged into €{rates.EUR} or £{rates.GBP}
+                    </h3>
+
+                    <label>
+                        USD
+                        <input value={USDInput} type="number" onChange={handleUSDChange} />
+                    </label>
+                    <label>
+                        EUR
+                        <input value={EURInput} type="number" onChange={handleEURChange} />
+                    </label>
+                </>
+            )}
         </div>
     );
 };
