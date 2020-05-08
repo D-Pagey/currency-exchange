@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import './index.css';
+import * as S from './styles';
 
 const App: FC = () => {
     return (
         <div>
+            <S.GlobalStyle />
             <h1>Revolut Currency Exchange</h1>
         </div>
     );
