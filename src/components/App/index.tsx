@@ -1,11 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import axios from 'axios';
+import { fromUnixTime, format } from 'date-fns';
 import { RatesType } from '../../types';
+import { useInterval } from '../../hooks/useInterval';
 import * as S from './styles';
 
 const App: FC = () => {
     const [rates, setRates] = useState<RatesType>();
-    const [timestamp, setTimestamp] = useState();
+    const [updatedDate, setUpdatedDate] = useState<Date>();
     const [USDInput, setUSDInput] = useState<number>();
     const [EURInput, setEURInput] = useState<number>();
 
@@ -15,12 +17,16 @@ const App: FC = () => {
         );
 
         setRates({ GBP: data.rates.GBP, EUR: data.rates.EUR });
-        setTimestamp(data.timestamp);
+        setUpdatedDate(fromUnixTime(data.timestamp));
     };
 
     useEffect(() => {
         fetchData();
     }, []);
+
+    useInterval(() => {
+        fetchData();
+    }, 10000);
 
     const handleUSDChange = (event: any): void => {
         setUSDInput(event.target.value);
@@ -37,7 +43,7 @@ const App: FC = () => {
             <S.GlobalStyle />
             <h1>Revolut Currency Exchange</h1>
 
-            {rates && (
+            {rates && updatedDate && (
                 <>
                     <h3>
                         $1 can be exchanged into €{rates.EUR} or £{rates.GBP}
@@ -51,6 +57,8 @@ const App: FC = () => {
                         EUR
                         <input value={EURInput} type="number" onChange={handleEURChange} />
                     </label>
+
+                    <p>Last updated at {format(updatedDate, 'PPpp')}</p>
                 </>
             )}
         </div>
