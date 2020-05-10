@@ -4,6 +4,8 @@
 
 [ ] Flesh out README
 
+-   assuming a "pocket" is an account
+
 ## Common Scripts
 
 In the project directory, you can run:

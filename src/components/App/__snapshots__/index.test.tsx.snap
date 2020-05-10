@@ -5,5 +5,22 @@ exports[`App component should render 1`] = `
   <h1>
     Revolut Currency Exchange
   </h1>
+  <h3>
+    Accounts:
+  </h3>
+  <ul>
+    <li>
+      USD: $
+      50
+    </li>
+    <li>
+      GBP: £
+      50
+    </li>
+    <li>
+      EUR: €
+      50
+    </li>
+  </ul>
 </div>
 `;
