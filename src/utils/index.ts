@@ -7,6 +7,8 @@ export const getValueFromRates = (
     rates: RatesType,
     value: number,
 ): number => {
+    if (exchangeFrom === exchangeTo) return value;
+
     if (exchangeFrom === USD) {
         return value * rates[exchangeTo];
     }

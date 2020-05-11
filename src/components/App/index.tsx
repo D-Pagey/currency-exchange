@@ -114,6 +114,8 @@ const App: FC = () => {
             {updatedDate && <p>Rates last updated at {format(updatedDate, 'PPpp')}</p>}
 
             <Exchange
+                currencyFrom={currencyFrom}
+                currencyTo={currencyTo}
                 exchangeFromLabel={getCurrencyLabel(currencyFrom)}
                 exchangeFromValue={currencyFromValue}
                 exchangeToLabel={getCurrencyLabel(currencyTo)}
@@ -122,6 +124,10 @@ const App: FC = () => {
                 handleExchangeFromChange={handleExchangeFromChange}
                 handleExchangeToChange={handleExchangeToChange}
                 handleSwap={handleSwap}
+                setCurrencyFrom={setCurrencyFrom}
+                setCurrencyFromValue={setCurrencyFromValue}
+                setCurrencyTo={setCurrencyTo}
+                setCurrencyToValue={setCurrencyToValue}
             />
         </div>
     );
