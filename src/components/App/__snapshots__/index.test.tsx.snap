@@ -22,5 +22,31 @@ exports[`App component should render 1`] = `
       50
     </li>
   </ul>
+  <div>
+    <label>
+      USD ($50)
+      <input
+        type="number"
+        value="0"
+      />
+    </label>
+    <label>
+      GBP (£50)
+      <input
+        type="number"
+        value="0"
+      />
+    </label>
+    <button
+      type="button"
+    >
+      Exchange
+    </button>
+    <button
+      type="button"
+    >
+      Swap
+    </button>
+  </div>
 </div>
 `;

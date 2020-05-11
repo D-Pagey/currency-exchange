@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useCallback } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import axios from 'axios';
 import { fromUnixTime, format } from 'date-fns';
 import { RatesType } from '../../types';
@@ -8,23 +8,26 @@ import { getValueFromRates } from '../../utils';
 import { Exchange } from '../Exchange';
 import * as S from './styles';
 
-type CurrencyPropsType = {
-    accountValue: number;
-    label: string;
-    rateToUSD: number;
-    value: number;
+const initialAccounts = {
+    EUR: 50,
+    GBP: 50,
+    USD: 50,
+};
+
+type AccountsType = {
+    EUR: number;
+    GBP: number;
+    USD: number;
 };
 
 const App: FC = () => {
     const [rates, setRates] = useState<RatesType>();
     const [updatedDate, setUpdatedDate] = useState<Date>();
-    const [GBPAccount, setGBPAccount] = useState<number>(50);
-    const [USDAccount, setUSDAccount] = useState<number>(50);
-    const [EURAccount, setEURAccount] = useState<number>(50);
+    const [accounts, setAccounts] = useState<AccountsType>(initialAccounts);
     const [currencyFrom, setCurrencyFrom] = useState<'USD' | 'EUR' | 'GBP'>(USD);
-    const [currencyFromProps, setCurrencyFromProps] = useState<CurrencyPropsType>();
+    const [currencyFromValue, setCurrencyFromValue] = useState(0);
     const [currencyTo, setCurrencyTo] = useState<'USD' | 'EUR' | 'GBP'>(GBP);
-    const [currencyToProps, setCurrencyToProps] = useState<CurrencyPropsType>();
+    const [currencyToValue, setCurrencyToValue] = useState(0);
 
     const fetchData = async () => {
         const { data } = await axios.get(
@@ -43,67 +46,43 @@ const App: FC = () => {
         fetchData();
     }, 10000);
 
-    const getCurrencyProps = useCallback(
-        (currency: string): CurrencyPropsType => {
-            switch (currency) {
-                case USD:
-                    return {
-                        accountValue: USDAccount,
-                        label: `USD ($${USDAccount})`,
-                        rateToUSD: 1,
-                        value: 0,
-                    };
-                case EUR:
-                    return {
-                        accountValue: EURAccount,
-                        label: `EUR (€${EURAccount})`,
-                        rateToUSD: rates!.EUR,
-                        value: 0,
-                    };
-                default:
-                    return {
-                        accountValue: GBPAccount,
-                        label: `GBP (£${GBPAccount})`,
-                        rateToUSD: rates!.GBP,
-                        value: 0,
-                    };
-            }
-        },
-        [EURAccount, GBPAccount, USDAccount, rates],
-    );
-
-    useEffect(() => {
-        if (rates) {
-            setCurrencyFromProps(getCurrencyProps(currencyFrom));
-            setCurrencyToProps(getCurrencyProps(currencyTo));
-        }
-    }, [currencyFrom, currencyTo, rates, getCurrencyProps]);
-
     const handleSwap = (): void => {
         setCurrencyFrom(currencyTo);
+        setCurrencyFromValue(currencyToValue);
+
         setCurrencyTo(currencyFrom);
+        setCurrencyToValue(currencyFromValue);
     };
 
     const handleExchangeFromChange = (event: any): void => {
         const value = parseInt(event.target.value, 10);
 
-        if (currencyFromProps) setCurrencyFromProps({ ...currencyFromProps, value });
-        if (currencyToProps) {
-            const converted = getValueFromRates(currencyFrom, currencyTo, rates!, value);
-            setCurrencyToProps({ ...currencyToProps, value: converted });
+        setCurrencyFromValue(value);
+
+        if (rates) {
+            const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates, value);
+            setCurrencyToValue(convertedValue);
         }
     };
 
     const handleExchangeToChange = (event: any): void => {
         const value = parseInt(event.target.value, 10);
 
-        if (currencyToProps) setCurrencyToProps({ ...currencyToProps, value });
-        if (currencyFromProps) {
-            const converted = getValueFromRates(currencyTo, currencyFrom, rates!, value);
-            setCurrencyFromProps({ ...currencyFromProps, value: converted });
+        setCurrencyToValue(value);
+
+        if (rates) {
+            const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates, value);
+            setCurrencyFromValue(convertedValue);
         }
     };
     const handleExchange = () => console.log('exchanged');
+
+    const getCurrencyLabel = (currency: string): string => {
+        if (currency === USD) return `USD ($${accounts.USD})`;
+        if (currency === EUR) return `EUR (€${accounts.USD})`;
+
+        return `GBP (£${accounts.USD})`;
+    };
 
     return (
         <div>
@@ -112,9 +91,9 @@ const App: FC = () => {
 
             <h3>Accounts:</h3>
             <ul>
-                <li>USD: ${USDAccount}</li>
-                <li>GBP: £{GBPAccount}</li>
-                <li>EUR: €{EURAccount}</li>
+                <li>USD: ${accounts.USD}</li>
+                <li>GBP: £{accounts.GBP}</li>
+                <li>EUR: €{accounts.EUR}</li>
             </ul>
 
             {rates && (
@@ -125,18 +104,16 @@ const App: FC = () => {
 
             {updatedDate && <p>Rates last updated at {format(updatedDate, 'PPpp')}</p>}
 
-            {currencyFromProps && currencyToProps && (
-                <Exchange
-                    exchangeFromLabel={currencyFromProps.label}
-                    exchangeFromValue={currencyFromProps.value}
-                    exchangeToLabel={currencyToProps.label}
-                    exchangeToValue={currencyToProps.value}
-                    handleExchange={handleExchange}
-                    handleExchangeFromChange={handleExchangeFromChange}
-                    handleExchangeToChange={handleExchangeToChange}
-                    handleSwap={handleSwap}
-                />
-            )}
+            <Exchange
+                exchangeFromLabel={getCurrencyLabel(currencyFrom)}
+                exchangeFromValue={currencyFromValue}
+                exchangeToLabel={getCurrencyLabel(currencyTo)}
+                exchangeToValue={currencyToValue}
+                handleExchange={handleExchange}
+                handleExchangeFromChange={handleExchangeFromChange}
+                handleExchangeToChange={handleExchangeToChange}
+                handleSwap={handleSwap}
+            />
         </div>
     );
 };
