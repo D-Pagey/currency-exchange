@@ -75,7 +75,16 @@ const App: FC = () => {
             setCurrencyFromValue(convertedValue);
         }
     };
-    const handleExchange = () => console.log('exchanged');
+
+    const handleExchange = () => {
+        const updatedAccounts = {
+            ...accounts,
+            [currencyFrom]: accounts[currencyFrom] - currencyFromValue,
+            [currencyTo]: accounts[currencyTo] + currencyToValue,
+        };
+
+        setAccounts(updatedAccounts);
+    };
 
     const getCurrencyLabel = (currency: string): string => {
         if (currency === USD) return `USD ($${accounts.USD})`;
