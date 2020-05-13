@@ -102,6 +102,7 @@ exports[`PageExchange component should render 1`] = `
       class="sc-Axmtr jUXypK"
     >
       Balance: 
+      $
       50
     </p>
     <div
@@ -178,6 +179,7 @@ exports[`PageExchange component should render 1`] = `
       class="sc-Axmtr jUXypK"
     >
       Balance: 
+      £
       50
     </p>
   </div>

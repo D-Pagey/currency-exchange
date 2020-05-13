@@ -89,7 +89,10 @@ export const PageExchange: FC<PageExchangeTypes> = ({
 
                 <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
-                <S.GridText>Balance: {accounts[currencyFrom]}</S.GridText>
+                <S.GridText>
+                    Balance: {currencies[currencyFrom]}
+                    {accounts[currencyFrom]}
+                </S.GridText>
 
                 <Select
                     options={dropdownOptions}
@@ -99,7 +102,10 @@ export const PageExchange: FC<PageExchangeTypes> = ({
 
                 <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
-                <S.GridText>Balance: {accounts[currencyTo]}</S.GridText>
+                <S.GridText>
+                    Balance: {currencies[currencyTo]}
+                    {accounts[currencyTo]}
+                </S.GridText>
             </S.Grid>
 
             <S.ButtonWrapper>
