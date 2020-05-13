@@ -11,9 +11,7 @@ export type PageExchangeTypes = {
     accounts: AccountsType;
     currencyFrom: string;
     currencyTo: string;
-    exchangeFromLabel: string;
     exchangeFromValue: number;
-    exchangeToLabel: string;
     exchangeToValue: number;
     handleExchange: () => void;
     handleExchangeFromChange: (event: any) => void;
@@ -46,9 +44,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({
     accounts,
     currencyFrom,
     currencyTo,
-    exchangeFromLabel,
     exchangeFromValue,
-    exchangeToLabel,
     exchangeToValue,
     handleExchangeFromChange,
     handleExchangeToChange,

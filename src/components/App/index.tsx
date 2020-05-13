@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { fromUnixTime } from 'date-fns';
 
 import { AccountsType, RatesType } from '../../types';
-import { EUR, GBP, USD } from '../../constants';
+import { GBP, USD } from '../../constants';
 import { useInterval } from '../../hooks/useInterval';
 import { getValueFromRates } from '../../utils';
 import { PageHome } from '../PageHome';
@@ -75,7 +75,7 @@ const App: FC = () => {
         }
     };
 
-    const handleExchange = () => {
+    const handleExchange = (): void => {
         const updatedAccounts = {
             ...accounts,
             [currencyFrom]: accounts[currencyFrom] - currencyFromValue,
@@ -83,13 +83,6 @@ const App: FC = () => {
         };
 
         setAccounts(updatedAccounts);
-    };
-
-    const getCurrencyLabel = (currency: string): string => {
-        if (currency === USD) return `USD ($${accounts.USD})`;
-        if (currency === EUR) return `EUR (€${accounts.USD})`;
-
-        return `GBP (£${accounts.USD})`;
     };
 
     return (
@@ -110,9 +103,7 @@ const App: FC = () => {
                                     accounts={accounts}
                                     currencyFrom={currencyFrom}
                                     currencyTo={currencyTo}
-                                    exchangeFromLabel={getCurrencyLabel(currencyFrom)}
                                     exchangeFromValue={currencyFromValue}
-                                    exchangeToLabel={getCurrencyLabel(currencyTo)}
                                     exchangeToValue={currencyToValue}
                                     handleExchange={handleExchange}
                                     handleExchangeFromChange={handleExchangeFromChange}
