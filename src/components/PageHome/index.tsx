@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { AccountsType } from '../../types';
+import * as S from './styles';
 
 export type PageHomeTypes = {
     accounts: AccountsType;
@@ -8,12 +9,12 @@ export type PageHomeTypes = {
 export const PageHome: FC<PageHomeTypes> = ({ accounts }): JSX.Element => {
     return (
         <div>
-            <h3>Accounts:</h3>
-            <ul>
+            <S.Title>Your Account Balances:</S.Title>
+            <S.List>
                 <li>USD: ${accounts.USD}</li>
                 <li>GBP: £{accounts.GBP}</li>
                 <li>EUR: €{accounts.EUR}</li>
-            </ul>
+            </S.List>
         </div>
     );
 };

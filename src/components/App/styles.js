@@ -30,3 +30,8 @@ export const Wrapper = styled.div`
     padding: 0 1rem;
     width: 375px;
 `;
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;

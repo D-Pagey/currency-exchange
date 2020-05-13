@@ -10,6 +10,7 @@ import { getValueFromRates } from '../../utils';
 import { PageHome } from '../PageHome';
 import { PageExchange } from '../PageExchange';
 import { Header } from '../Header';
+import { Button } from '../Button';
 import * as S from './styles';
 
 const initialAccounts = {
@@ -125,12 +126,15 @@ const App: FC = () => {
                     />
                 </Switch>
 
-                <button type="button">
-                    <Link to="/">Home</Link>
-                </button>
-                <button type="button">
-                    <Link to="/exchange">Exchange</Link>
-                </button>
+                <S.ButtonWrapper>
+                    <Link to="/">
+                        <Button>Home</Button>
+                    </Link>
+
+                    <Link to="/exchange">
+                        <Button>Exchange</Button>
+                    </Link>
+                </S.ButtonWrapper>
             </S.Wrapper>
         </BrowserRouter>
     );
