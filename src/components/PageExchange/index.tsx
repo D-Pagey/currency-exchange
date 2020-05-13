@@ -2,8 +2,11 @@ import React, { FC } from 'react';
 import Select from 'react-select';
 import { format } from 'date-fns';
 import { EUR, GBP, USD } from '../../constants';
+import { AccountsType, RatesType } from '../../types';
+import * as S from './styles';
 
-type PageExchangeTypes = {
+export type PageExchangeTypes = {
+    accounts: AccountsType;
     currencyFrom: string;
     currencyTo: string;
     exchangeFromLabel: string;
@@ -14,6 +17,7 @@ type PageExchangeTypes = {
     handleExchangeFromChange: (event: any) => void;
     handleExchangeToChange: (event: any) => void;
     handleSwap: () => void;
+    rates: RatesType;
     setCurrencyFrom: (currency: any) => void;
     setCurrencyFromValue: Function;
     setCurrencyTo: (currency: any) => void;
@@ -37,6 +41,7 @@ const dropdownOptions = [
 ];
 
 export const PageExchange: FC<PageExchangeTypes> = ({
+    accounts,
     currencyFrom,
     currencyTo,
     exchangeFromLabel,
@@ -47,6 +52,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({
     handleExchangeToChange,
     handleSwap,
     handleExchange,
+    rates,
     setCurrencyFrom,
     setCurrencyFromValue,
     setCurrencyTo,
@@ -62,28 +68,32 @@ export const PageExchange: FC<PageExchangeTypes> = ({
     };
 
     return (
-        <div>
-            <Select
-                options={dropdownOptions}
-                onChange={handleDropdownChange('from')}
-                value={{ label: currencyFrom, value: currencyFrom }}
-            />
+        <S.Wrapper>
+            <S.Title>Exchange Currencies:</S.Title>
 
-            <label>
-                {exchangeFromLabel}
-                <input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
-            </label>
+            <S.Text>Current rate: £1 = ${rates[currencyTo]}</S.Text>
 
-            <Select
-                options={dropdownOptions}
-                onChange={handleDropdownChange('to')}
-                value={{ label: currencyTo, value: currencyTo }}
-            />
+            <S.Grid>
+                <Select
+                    options={dropdownOptions}
+                    onChange={handleDropdownChange('from')}
+                    value={{ label: currencyFrom, value: currencyFrom }}
+                />
 
-            <label>
-                {exchangeToLabel}
-                <input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
-            </label>
+                <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+
+                <S.GridText>Balance: {accounts[currencyFrom]}</S.GridText>
+
+                <Select
+                    options={dropdownOptions}
+                    onChange={handleDropdownChange('to')}
+                    value={{ label: currencyTo, value: currencyTo }}
+                />
+
+                <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+
+                <S.GridText>Balance: {accounts[currencyTo]}</S.GridText>
+            </S.Grid>
 
             <button type="button" onClick={handleExchange}>
                 Exchange
@@ -94,6 +104,6 @@ export const PageExchange: FC<PageExchangeTypes> = ({
             </button>
 
             {updatedDate && <p>Rates last updated at {format(updatedDate, 'PPpp')}</p>}
-        </div>
+        </S.Wrapper>
     );
 };

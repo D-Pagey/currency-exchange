@@ -21,17 +21,21 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Wrapper = styled.div`
-    border: 1px solid red;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     height: 667px;
     margin: 1rem auto 0;
     padding: 0 1rem;
-    width: 375px;
+    max-width: 375px;
+    position: relative;
 `;
 
 export const ButtonWrapper = styled.div`
+    bottom: 1rem;
     display: flex;
     justify-content: space-between;
+    left: 1rem;
+    position: absolute;
+    right: 1rem;
 `;

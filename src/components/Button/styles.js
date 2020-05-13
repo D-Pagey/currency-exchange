@@ -12,9 +12,19 @@ export const Button = styled.button`
     line-height: 1.5rem;
     transition: all 0.2s ease 0s;
     padding: 0.625em 1.5em;
-    width: 120px;
+    width: 160px;
 
     &:hover {
         background-color: rgb(5, 91, 210);
+    }
+`;
+
+export const SecondaryButton = styled(Button)`
+    color: rgb(6, 102, 235);
+    background-color: white;
+    border: 1px solid rgb(6, 102, 235);
+
+    &:hover {
+        background-color: white;
     }
 `;

@@ -101,38 +101,42 @@ const App: FC = () => {
 
                 <Switch>
                     <Route exact path="/" component={(props: any) => <PageHome {...props} accounts={accounts} />} />
-                    <Route
-                        path="/exchange"
-                        component={(props: any) => (
-                            <PageExchange
-                                {...props}
-                                currencyFrom={currencyFrom}
-                                currencyTo={currencyTo}
-                                exchangeFromLabel={getCurrencyLabel(currencyFrom)}
-                                exchangeFromValue={currencyFromValue}
-                                exchangeToLabel={getCurrencyLabel(currencyTo)}
-                                exchangeToValue={currencyToValue}
-                                handleExchange={handleExchange}
-                                handleExchangeFromChange={handleExchangeFromChange}
-                                handleExchangeToChange={handleExchangeToChange}
-                                handleSwap={handleSwap}
-                                setCurrencyFrom={setCurrencyFrom}
-                                setCurrencyFromValue={setCurrencyFromValue}
-                                setCurrencyTo={setCurrencyTo}
-                                setCurrencyToValue={setCurrencyToValue}
-                                updatedDate={updatedDate}
-                            />
-                        )}
-                    />
+                    {rates && (
+                        <Route
+                            path="/exchange"
+                            component={(props: any) => (
+                                <PageExchange
+                                    {...props}
+                                    accounts={accounts}
+                                    currencyFrom={currencyFrom}
+                                    currencyTo={currencyTo}
+                                    exchangeFromLabel={getCurrencyLabel(currencyFrom)}
+                                    exchangeFromValue={currencyFromValue}
+                                    exchangeToLabel={getCurrencyLabel(currencyTo)}
+                                    exchangeToValue={currencyToValue}
+                                    handleExchange={handleExchange}
+                                    handleExchangeFromChange={handleExchangeFromChange}
+                                    handleExchangeToChange={handleExchangeToChange}
+                                    handleSwap={handleSwap}
+                                    rates={rates}
+                                    setCurrencyFrom={setCurrencyFrom}
+                                    setCurrencyFromValue={setCurrencyFromValue}
+                                    setCurrencyTo={setCurrencyTo}
+                                    setCurrencyToValue={setCurrencyToValue}
+                                    updatedDate={updatedDate}
+                                />
+                            )}
+                        />
+                    )}
                 </Switch>
 
                 <S.ButtonWrapper>
                     <Link to="/">
-                        <Button>Home</Button>
+                        <Button secondary>Home Page</Button>
                     </Link>
 
                     <Link to="/exchange">
-                        <Button>Exchange</Button>
+                        <Button secondary>Exchange Page</Button>
                     </Link>
                 </S.ButtonWrapper>
             </S.Wrapper>

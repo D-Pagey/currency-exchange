@@ -1,11 +1,7 @@
 export type RatesType = {
-    GBP: number;
-    EUR: number;
-    USD: number;
+    [key: string]: number;
 };
 
 export type AccountsType = {
-    EUR: number;
-    GBP: number;
-    USD: number;
+    [key: string]: number;
 };
