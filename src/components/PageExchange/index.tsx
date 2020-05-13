@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import Select from 'react-select';
+import { format } from 'date-fns';
 import { EUR, GBP, USD } from '../../constants';
 
-type ExchangeTypes = {
+type PageExchangeTypes = {
     currencyFrom: string;
     currencyTo: string;
     exchangeFromLabel: string;
@@ -17,6 +18,7 @@ type ExchangeTypes = {
     setCurrencyFromValue: Function;
     setCurrencyTo: (currency: any) => void;
     setCurrencyToValue: Function;
+    updatedDate: Date;
 };
 
 const dropdownOptions = [
@@ -34,7 +36,7 @@ const dropdownOptions = [
     },
 ];
 
-export const Exchange: FC<ExchangeTypes> = ({
+export const PageExchange: FC<PageExchangeTypes> = ({
     currencyFrom,
     currencyTo,
     exchangeFromLabel,
@@ -49,6 +51,7 @@ export const Exchange: FC<ExchangeTypes> = ({
     setCurrencyFromValue,
     setCurrencyTo,
     setCurrencyToValue,
+    updatedDate,
 }) => {
     const handleDropdownChange = (fromOrTo: string) => (option: any) => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
@@ -89,6 +92,8 @@ export const Exchange: FC<ExchangeTypes> = ({
             <button type="button" onClick={handleSwap}>
                 Swap
             </button>
+
+            {updatedDate && <p>Rates last updated at {format(updatedDate, 'PPpp')}</p>}
         </div>
     );
 };
