@@ -11,9 +11,11 @@ export const PageHome: FC<PageHomeTypes> = ({ accounts }): JSX.Element => {
         <div>
             <S.Title>Your Account Balances:</S.Title>
             <S.List>
-                <li>USD: ${accounts.USD}</li>
-                <li>GBP: £{accounts.GBP}</li>
-                <li>EUR: €{accounts.EUR}</li>
+                {Object.keys(accounts).map((account) => (
+                    <li key={account}>
+                        {account}: ${accounts[account]}
+                    </li>
+                ))}
             </S.List>
         </div>
     );

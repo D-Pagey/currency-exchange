@@ -35,3 +35,15 @@ export const GridText = styled.p`
     margin: 0;
     grid-column: 1 / 3;
 `;
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const ItalicSmall = styled.p`
+    font-size: 12px;
+    font-style: italic;
+    margin: 0;
+    padding: 0 0 1rem;
+`;

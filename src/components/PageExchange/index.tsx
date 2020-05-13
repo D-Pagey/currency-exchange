@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import Select from 'react-select';
 import { format } from 'date-fns';
-import { EUR, GBP, USD } from '../../constants';
+import { EUR, GBP, USD, currencies } from '../../constants';
 import { AccountsType, RatesType } from '../../types';
+import { getValueFromRates } from '../../utils';
+import { Button } from '../Button';
 import * as S from './styles';
 
 export type PageExchangeTypes = {
@@ -71,7 +73,12 @@ export const PageExchange: FC<PageExchangeTypes> = ({
         <S.Wrapper>
             <S.Title>Exchange Currencies:</S.Title>
 
-            <S.Text>Current rate: £1 = ${rates[currencyTo]}</S.Text>
+            <S.ItalicSmall>(Rates last updated at {format(updatedDate, 'PPpp')})</S.ItalicSmall>
+
+            <S.Text>
+                Current rate: {currencies[currencyFrom]}1 = {currencies[currencyTo]}
+                {getValueFromRates(currencyFrom, currencyTo, rates, 1)}
+            </S.Text>
 
             <S.Grid>
                 <Select
@@ -95,15 +102,11 @@ export const PageExchange: FC<PageExchangeTypes> = ({
                 <S.GridText>Balance: {accounts[currencyTo]}</S.GridText>
             </S.Grid>
 
-            <button type="button" onClick={handleExchange}>
-                Exchange
-            </button>
+            <S.ButtonWrapper>
+                <Button onClick={handleSwap}>Swap</Button>
 
-            <button type="button" onClick={handleSwap}>
-                Swap
-            </button>
-
-            {updatedDate && <p>Rates last updated at {format(updatedDate, 'PPpp')}</p>}
+                <Button onClick={handleExchange}>Exchange</Button>
+            </S.ButtonWrapper>
         </S.Wrapper>
     );
 };

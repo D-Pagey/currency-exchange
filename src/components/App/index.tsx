@@ -101,7 +101,7 @@ const App: FC = () => {
 
                 <Switch>
                     <Route exact path="/" component={(props: any) => <PageHome {...props} accounts={accounts} />} />
-                    {rates && (
+                    {rates && updatedDate && (
                         <Route
                             path="/exchange"
                             component={(props: any) => (

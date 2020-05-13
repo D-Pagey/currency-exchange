@@ -11,15 +11,18 @@ exports[`PageHome component should render 1`] = `
     class="sc-AxirZ YsMMV"
   >
     <li>
-      USD: $
+      GBP
+      : $
       50
     </li>
     <li>
-      GBP: £
+      USD
+      : $
       50
     </li>
     <li>
-      EUR: €
+      EUR
+      : $
       50
     </li>
   </ul>

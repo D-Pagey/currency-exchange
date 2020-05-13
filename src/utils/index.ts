@@ -2,8 +2,8 @@ import { RatesType } from '../types';
 import { EUR, GBP, USD } from '../constants';
 
 export const getValueFromRates = (
-    exchangeFrom: 'USD' | 'GBP' | 'EUR',
-    exchangeTo: 'USD' | 'GBP' | 'EUR',
+    exchangeFrom: string,
+    exchangeTo: string,
     rates: RatesType,
     value: number,
 ): number => {

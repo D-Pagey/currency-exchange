@@ -2,21 +2,31 @@
 
 exports[`PageExchange component should render 1`] = `
 <div
-  class="sc-AxjAm eYcNGP"
+  class="sc-AxiKw iSgsng"
 >
   <h2
-    class="sc-AxirZ jugINc"
+    class="sc-AxhCb bWMWuw"
   >
     Exchange Currencies:
   </h2>
   <p
-    class="sc-AxiKw itGuPZ"
+    class="sc-fzozJi hJENsN"
   >
-    Current rate: £1 = $
+    (Rates last updated at 
+    Mar 10, 2019, 3:24:00 AM
+    )
+  </p>
+  <p
+    class="sc-AxhUy gpacYo"
+  >
+    Current rate: 
+    $
+    1 = 
+    £
     0.8
   </p>
   <div
-    class="sc-AxhCb hsCtlf"
+    class="sc-AxgMl ccgJsg"
   >
     <div
       class=" css-2b097c-container"
@@ -84,12 +94,12 @@ exports[`PageExchange component should render 1`] = `
       </div>
     </div>
     <input
-      class="sc-AxhUy eyhRRz"
+      class="sc-AxheI kEjwaL"
       type="number"
       value="50"
     />
     <p
-      class="sc-AxgMl fscpJX"
+      class="sc-Axmtr jUXypK"
     >
       Balance: 
       50
@@ -160,30 +170,32 @@ exports[`PageExchange component should render 1`] = `
       </div>
     </div>
     <input
-      class="sc-AxhUy eyhRRz"
+      class="sc-AxheI kEjwaL"
       type="number"
       value="50"
     />
     <p
-      class="sc-AxgMl fscpJX"
+      class="sc-Axmtr jUXypK"
     >
       Balance: 
       50
     </p>
   </div>
-  <button
-    type="button"
+  <div
+    class="sc-AxmLO dsJnwP"
   >
-    Exchange
-  </button>
-  <button
-    type="button"
-  >
-    Swap
-  </button>
-  <p>
-    Rates last updated at 
-    Mar 10, 2019, 3:24:00 AM
-  </p>
+    <button
+      class="sc-AxjAm ibCKbt"
+      type="button"
+    >
+      Swap
+    </button>
+    <button
+      class="sc-AxjAm ibCKbt"
+      type="button"
+    >
+      Exchange
+    </button>
+  </div>
 </div>
 `;
