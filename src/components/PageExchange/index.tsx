@@ -107,6 +107,8 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, rates, setAccoun
                         value={{ label: currencyFrom, value: currencyFrom }}
                     />
 
+                    {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
+
                     <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
                     <S.GridText invalid={valueTooLarge}>
@@ -119,6 +121,8 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, rates, setAccoun
                         onChange={handleDropdownChange('to')}
                         value={{ label: currencyTo, value: currencyTo }}
                     />
+
+                    {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
 
                     <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 

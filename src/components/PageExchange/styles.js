@@ -21,7 +21,7 @@ export const Text = styled.p`
 export const Grid = styled.div`
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 120px 20px 1fr;
     padding: 0 0 1rem;
 `;
 
@@ -30,12 +30,21 @@ export const Input = styled.input`
     background-color: ${colours.grey};
     padding: 0 0.5rem;
     border-radius: 4px;
+    grid-column: 3 / 4;
 `;
 
 export const GridText = styled.p`
     color: ${({ invalid }) => invalid && 'red'};
     margin: 0;
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
+`;
+
+export const Operator = styled.span`
+    align-self: center;
+    bottom: 2px;
+    font-size: 1.8rem;
+    justify-self: center;
+    position: relative;
 `;
 
 export const ButtonWrapper = styled.div`
