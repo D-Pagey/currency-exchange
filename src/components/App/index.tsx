@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { fromUnixTime } from 'date-fns';
 
 import { AccountsType, RatesType } from '../../types';
-import { GBP, USD } from '../../constants';
 // import { useInterval } from '../../hooks/useInterval';
 import { PageHome } from '../PageHome';
 import { PageExchange } from '../PageExchange';
@@ -22,8 +21,6 @@ const App: FC = () => {
     const [rates, setRates] = useState<RatesType>();
     const [updatedDate, setUpdatedDate] = useState<Date>();
     const [accounts, setAccounts] = useState<AccountsType>(initialAccounts);
-    const [currencyFrom, setCurrencyFrom] = useState<'USD' | 'EUR' | 'GBP'>(USD);
-    const [currencyTo, setCurrencyTo] = useState<'USD' | 'EUR' | 'GBP'>(GBP);
 
     const fetchData = async () => {
         const { data } = await axios.get(
@@ -58,12 +55,8 @@ const App: FC = () => {
                                 <PageExchange
                                     {...props}
                                     accounts={accounts}
-                                    currencyFrom={currencyFrom}
-                                    currencyTo={currencyTo}
                                     rates={rates}
                                     setAccounts={setAccounts}
-                                    setCurrencyFrom={setCurrencyFrom}
-                                    setCurrencyTo={setCurrencyTo}
                                     updatedDate={updatedDate}
                                 />
                             )}

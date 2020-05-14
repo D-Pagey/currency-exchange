@@ -9,15 +9,12 @@ import * as S from './styles';
 
 export type PageExchangeTypes = {
     accounts: AccountsType;
-    currencyFrom: string;
-    currencyTo: string;
-    handleExchange: () => void;
     rates: RatesType;
     setAccounts: (accounts: AccountsType) => void;
-    setCurrencyFrom: (currency: any) => void;
-    setCurrencyTo: (currency: any) => void;
     updatedDate: Date;
 };
+
+type Currencies = 'USD' | 'EUR' | 'GBP';
 
 const dropdownOptions = [
     {
@@ -34,18 +31,11 @@ const dropdownOptions = [
     },
 ];
 
-export const PageExchange: FC<PageExchangeTypes> = ({
-    accounts,
-    currencyFrom,
-    currencyTo,
-    rates,
-    setAccounts,
-    setCurrencyFrom,
-    setCurrencyTo,
-    updatedDate,
-}) => {
+export const PageExchange: FC<PageExchangeTypes> = ({ accounts, rates, setAccounts, updatedDate }) => {
     const [exchangeFromValue, setExchangeFromValue] = useState<number>(0);
     const [exchangeToValue, setExchangeToValue] = useState<number>(0);
+    const [currencyFrom, setCurrencyFrom] = useState<Currencies>(USD);
+    const [currencyTo, setCurrencyTo] = useState<Currencies>(GBP);
 
     const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
     const invalidFromValue = exchangeFromValue <= 0 || valueTooLarge;
