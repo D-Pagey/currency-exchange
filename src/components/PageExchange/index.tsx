@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import { format, fromUnixTime } from 'date-fns';
@@ -8,6 +8,7 @@ import { EUR, GBP, USD, currencies } from '../../constants';
 import { AccountsType, RatesType } from '../../types';
 import { getValueFromRates } from '../../utils';
 import { Button } from '../Button';
+import { Loading } from '../Loading';
 import * as S from './styles';
 
 export type PageExchangeTypes = {
@@ -16,6 +17,8 @@ export type PageExchangeTypes = {
 };
 
 type Currencies = 'USD' | 'EUR' | 'GBP';
+
+const POLLING_INTERVAL = 10000;
 
 const dropdownOptions = [
     {
@@ -35,10 +38,11 @@ const dropdownOptions = [
 export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) => {
     const [rates, setRates] = useState<RatesType>();
     const [updatedDate, setUpdatedDate] = useState<Date>();
-    const [exchangeFromValue, setExchangeFromValue] = useState<number>(0);
-    const [exchangeToValue, setExchangeToValue] = useState<number>(0);
+    const [exchangeFromValue, setExchangeFromValue] = useState(0);
+    const [exchangeToValue, setExchangeToValue] = useState(0);
     const [currencyFrom, setCurrencyFrom] = useState<Currencies>(USD);
     const [currencyTo, setCurrencyTo] = useState<Currencies>(GBP);
+    const [isLoading, setIsLoading] = useState(true);
 
     const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
     const invalidFromValue = exchangeFromValue <= 0 || valueTooLarge;
@@ -50,6 +54,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
         setRates({ USD: 1, GBP: data.rates.GBP, EUR: data.rates.EUR });
         setUpdatedDate(fromUnixTime(data.timestamp));
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -58,7 +63,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
     useInterval(() => {
         fetchData();
-    }, 10000);
+    }, POLLING_INTERVAL);
 
     const handleDropdownChange = (fromOrTo: string) => (option: any) => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
@@ -68,7 +73,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
         setExchangeToValue(0);
     };
 
-    const handleExchangeFromChange = (event: any): void => {
+    const handleExchangeFromChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const value = parseInt(event.target.value, 10);
 
         setExchangeFromValue(value);
@@ -79,7 +84,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
         }
     };
 
-    const handleExchangeToChange = (event: any): void => {
+    const handleExchangeToChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const value = parseInt(event.target.value, 10);
 
         setExchangeToValue(value);
@@ -108,62 +113,60 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
         setAccounts(updatedAccounts);
     };
 
-    if (rates && updatedDate) {
-        return (
-            <S.Wrapper>
-                <S.Title>Exchange Currencies:</S.Title>
+    if (isLoading) return <Loading isLoading />;
 
-                <S.ItalicSmall>(Rates last updated at {format(updatedDate, 'PPpp')})</S.ItalicSmall>
+    return (
+        <S.Wrapper>
+            <S.Title>Exchange Currencies:</S.Title>
 
-                <S.Text>
-                    Current rate: {currencies[currencyFrom]}1 = {currencies[currencyTo]}
-                    {getValueFromRates(currencyFrom, currencyTo, rates, 1)}
-                </S.Text>
+            <S.ItalicSmall>(Rates last updated at {format(updatedDate!, 'PPpp')})</S.ItalicSmall>
 
-                <form>
-                    <S.Grid>
-                        <Select
-                            options={dropdownOptions}
-                            onChange={handleDropdownChange('from')}
-                            value={{ label: currencyFrom, value: currencyFrom }}
-                        />
+            <S.Text>
+                Current rate: {currencies[currencyFrom]}1 = {currencies[currencyTo]}
+                {getValueFromRates(currencyFrom, currencyTo, rates!, 1)}
+            </S.Text>
 
-                        {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
+            <form>
+                <S.Grid>
+                    <Select
+                        options={dropdownOptions}
+                        onChange={handleDropdownChange('from')}
+                        value={{ label: currencyFrom, value: currencyFrom }}
+                    />
 
-                        <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+                    {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
 
-                        <S.GridText invalid={valueTooLarge}>
-                            Balance: {currencies[currencyFrom]}
-                            {accounts[currencyFrom]}
-                        </S.GridText>
+                    <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
-                        <Select
-                            options={dropdownOptions}
-                            onChange={handleDropdownChange('to')}
-                            value={{ label: currencyTo, value: currencyTo }}
-                        />
+                    <S.GridText invalid={valueTooLarge}>
+                        Balance: {currencies[currencyFrom]}
+                        {accounts[currencyFrom]}
+                    </S.GridText>
 
-                        {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
+                    <Select
+                        options={dropdownOptions}
+                        onChange={handleDropdownChange('to')}
+                        value={{ label: currencyTo, value: currencyTo }}
+                    />
 
-                        <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+                    {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
 
-                        <S.GridText>
-                            Balance: {currencies[currencyTo]}
-                            {accounts[currencyTo]}
-                        </S.GridText>
-                    </S.Grid>
+                    <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
-                    <S.ButtonWrapper>
-                        <Button onClick={handleSwap}>Swap</Button>
+                    <S.GridText>
+                        Balance: {currencies[currencyTo]}
+                        {accounts[currencyTo]}
+                    </S.GridText>
+                </S.Grid>
 
-                        <Button onClick={handleExchange} isDisabled={invalidFromValue}>
-                            Exchange
-                        </Button>
-                    </S.ButtonWrapper>
-                </form>
-            </S.Wrapper>
-        );
-    }
+                <S.ButtonWrapper>
+                    <Button onClick={handleSwap}>Swap</Button>
 
-    return <div />;
+                    <Button onClick={handleExchange} isDisabled={invalidFromValue}>
+                        Exchange
+                    </Button>
+                </S.ButtonWrapper>
+            </form>
+        </S.Wrapper>
+    );
 };

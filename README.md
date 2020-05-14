@@ -5,6 +5,10 @@
 [ ] Flesh out README
 
 -   assuming a "pocket" is an account
+-   elected not to use redux as thought local state was cleaner
+-   mention how util function not scalable
+-   if I had more time
+-   mention handle changes
 
 ## Common Scripts
 

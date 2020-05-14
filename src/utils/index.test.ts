@@ -2,9 +2,9 @@ import { getValueFromRates } from '.';
 import { EUR, GBP, USD } from '../constants';
 
 const rates = {
-    USD: 1,
-    GBP: 0.5,
     EUR: 2,
+    GBP: 0.5,
+    USD: 1,
 };
 
 describe('getValueFromRates function', () => {

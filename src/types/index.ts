@@ -1,3 +1,4 @@
+// sort out
 export type RatesType = {
     [key: string]: number;
 };

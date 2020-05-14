@@ -18,16 +18,8 @@ export const Button: FC<ButtonTypes> = ({ children, isDisabled, secondary, ...pr
     }
 
     if (secondary) {
-        return (
-            <S.SecondaryButton type="button" {...props}>
-                {children}
-            </S.SecondaryButton>
-        );
+        return <S.SecondaryButton {...props}>{children}</S.SecondaryButton>;
     }
 
-    return (
-        <S.Button type="button" {...props}>
-            {children}
-        </S.Button>
-    );
+    return <S.Button {...props}>{children}</S.Button>;
 };
