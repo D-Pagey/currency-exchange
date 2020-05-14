@@ -47,6 +47,9 @@ export const PageExchange: FC<PageExchangeTypes> = ({
     const [exchangeFromValue, setExchangeFromValue] = useState<number>(0);
     const [exchangeToValue, setExchangeToValue] = useState<number>(0);
 
+    const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
+    const invalidFromValue = exchangeFromValue <= 0 || valueTooLarge;
+
     const handleDropdownChange = (fromOrTo: string) => (option: any) => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
         if (fromOrTo === 'to') setCurrencyTo(option.value);
@@ -116,7 +119,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({
 
                     <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
-                    <S.GridText>
+                    <S.GridText invalid={valueTooLarge}>
                         Balance: {currencies[currencyFrom]}
                         {accounts[currencyFrom]}
                     </S.GridText>
@@ -138,7 +141,9 @@ export const PageExchange: FC<PageExchangeTypes> = ({
                 <S.ButtonWrapper>
                     <Button onClick={handleSwap}>Swap</Button>
 
-                    <Button onClick={handleExchange}>Exchange</Button>
+                    <Button onClick={handleExchange} isDisabled={invalidFromValue}>
+                        Exchange
+                    </Button>
                 </S.ButtonWrapper>
             </form>
         </S.Wrapper>

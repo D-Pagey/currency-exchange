@@ -29,3 +29,14 @@ export const SecondaryButton = styled(Button)`
         background-color: white;
     }
 `;
+
+export const DisabledButton = styled(Button)`
+    color: white;
+    background-color: grey;
+    border: none;
+    cursor: initial;
+
+    &:hover {
+        background-color: grey;
+    }
+`;

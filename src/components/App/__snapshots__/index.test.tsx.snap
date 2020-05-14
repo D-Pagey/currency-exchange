@@ -2,10 +2,10 @@
 
 exports[`App component should render 1`] = `
 <div
-  class="sc-fznKkj gKYsZj"
+  class="sc-fznZeY ftmDmP"
 >
   <header
-    class="sc-fznyAO bIQaYw"
+    class="sc-fznKkj kNGCet"
   >
     <svg
       data-testid="logo-svg"
@@ -230,7 +230,7 @@ exports[`App component should render 1`] = `
     </ul>
   </div>
   <div
-    class="sc-fznZeY hMUKNx"
+    class="sc-fzokOt fMZUNi"
   >
     <a
       href="/"

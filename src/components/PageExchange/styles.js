@@ -33,6 +33,7 @@ export const Input = styled.input`
 `;
 
 export const GridText = styled.p`
+    color: ${({ invalid }) => invalid && 'red'};
     margin: 0;
     grid-column: 1 / 3;
 `;
