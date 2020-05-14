@@ -94,7 +94,7 @@ exports[`PageExchange component should render 1`] = `
       </div>
     </div>
     <input
-      class="sc-AxheI kEjwaL"
+      class="sc-AxheI jOtyWb"
       type="number"
       value="50"
     />
@@ -171,7 +171,7 @@ exports[`PageExchange component should render 1`] = `
       </div>
     </div>
     <input
-      class="sc-AxheI kEjwaL"
+      class="sc-AxheI jOtyWb"
       type="number"
       value="50"
     />
@@ -187,13 +187,13 @@ exports[`PageExchange component should render 1`] = `
     class="sc-AxmLO dsJnwP"
   >
     <button
-      class="sc-AxjAm ibCKbt"
+      class="sc-AxjAm hLmfBx"
       type="button"
     >
       Swap
     </button>
     <button
-      class="sc-AxjAm ibCKbt"
+      class="sc-AxjAm hLmfBx"
       type="button"
     >
       Exchange

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { AccountsType } from '../../types';
+import { currencies } from '../../constants';
 import * as S from './styles';
 
 export type PageHomeTypes = {
@@ -12,9 +13,10 @@ export const PageHome: FC<PageHomeTypes> = ({ accounts }): JSX.Element => {
             <S.Title>Your Account Balances:</S.Title>
             <S.List>
                 {Object.keys(accounts).map((account) => (
-                    <li key={account}>
-                        {account}: ${accounts[account]}
-                    </li>
+                    <S.Item key={account}>
+                        {account}: {currencies[account]}
+                        {accounts[account]}
+                    </S.Item>
                 ))}
             </S.List>
         </div>

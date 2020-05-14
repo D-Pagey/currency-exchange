@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colours } from '../../tokens';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -25,8 +26,8 @@ export const Grid = styled.div`
 `;
 
 export const Input = styled.input`
-    border: 1px solid hsl(0, 0%, 80%);
-    background-color: hsl(0, 0%, 100%);
+    border: 1px solid ${colours.slightGrey};
+    background-color: ${colours.grey};
     padding: 0 0.5rem;
     border-radius: 4px;
 `;

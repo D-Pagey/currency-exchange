@@ -2,10 +2,10 @@
 
 exports[`App component should render 1`] = `
 <div
-  class="sc-fznyAO lkrnfe"
+  class="sc-fznKkj gKYsZj"
 >
   <header
-    class="sc-fzplWN bRtvDU"
+    class="sc-fznyAO bIQaYw"
   >
     <svg
       data-testid="logo-svg"
@@ -201,33 +201,42 @@ exports[`App component should render 1`] = `
       Your Account Balances:
     </h2>
     <ul
-      class="sc-AxirZ YsMMV"
+      class="sc-AxirZ diVtBJ"
     >
-      <li>
+      <li
+        class="sc-AxiKw bMLjCv"
+      >
         EUR
-        : $
+        : 
+        €
         50
       </li>
-      <li>
+      <li
+        class="sc-AxiKw bMLjCv"
+      >
         GBP
-        : $
+        : 
+        £
         50
       </li>
-      <li>
+      <li
+        class="sc-AxiKw bMLjCv"
+      >
         USD
-        : $
+        : 
+        $
         50
       </li>
     </ul>
   </div>
   <div
-    class="sc-fznKkj gPsapJ"
+    class="sc-fznZeY hMUKNx"
   >
     <a
       href="/"
     >
       <button
-        class="sc-AxiKw sc-AxhCb kEbwki"
+        class="sc-AxhCb sc-AxhUy QkRkL"
         type="button"
       >
         Home Page
@@ -237,7 +246,7 @@ exports[`App component should render 1`] = `
       href="/exchange"
     >
       <button
-        class="sc-AxiKw sc-AxhCb kEbwki"
+        class="sc-AxhCb sc-AxhUy QkRkL"
         type="button"
       >
         Exchange Page

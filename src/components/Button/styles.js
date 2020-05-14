@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { colours } from '../../tokens';
 
 export const Button = styled.button`
-    background-color: rgb(6, 102, 235);
+    background-color: ${colours.blue};
     border: none;
     border-radius: 2rem;
     color: white;
@@ -15,14 +16,14 @@ export const Button = styled.button`
     width: 160px;
 
     &:hover {
-        background-color: rgb(5, 91, 210);
+        background-color: ${colours.darkBlue};
     }
 `;
 
 export const SecondaryButton = styled(Button)`
-    color: rgb(6, 102, 235);
+    color: ${colours.blue};
     background-color: white;
-    border: 1px solid rgb(6, 102, 235);
+    border: 1px solid ${colours.blue};
 
     &:hover {
         background-color: white;

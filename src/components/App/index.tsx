@@ -5,7 +5,7 @@ import { fromUnixTime } from 'date-fns';
 
 import { AccountsType, RatesType } from '../../types';
 import { GBP, USD } from '../../constants';
-import { useInterval } from '../../hooks/useInterval';
+// import { useInterval } from '../../hooks/useInterval';
 import { getValueFromRates } from '../../utils';
 import { PageHome } from '../PageHome';
 import { PageExchange } from '../PageExchange';
@@ -41,9 +41,9 @@ const App: FC = () => {
         fetchData();
     }, []);
 
-    useInterval(() => {
-        fetchData();
-    }, 10000);
+    // useInterval(() => {
+    //     fetchData();
+    // }, 10000);
 
     const handleSwap = (): void => {
         setCurrencyFrom(currencyTo);

@@ -8,21 +8,30 @@ exports[`PageHome component should render 1`] = `
     Your Account Balances:
   </h2>
   <ul
-    class="sc-AxirZ YsMMV"
+    class="sc-AxirZ diVtBJ"
   >
-    <li>
+    <li
+      class="sc-AxiKw bMLjCv"
+    >
       GBP
-      : $
+      : 
+      £
       50
     </li>
-    <li>
+    <li
+      class="sc-AxiKw bMLjCv"
+    >
       USD
-      : $
+      : 
+      $
       50
     </li>
-    <li>
+    <li
+      class="sc-AxiKw bMLjCv"
+    >
       EUR
-      : $
+      : 
+      €
       50
     </li>
   </ul>
