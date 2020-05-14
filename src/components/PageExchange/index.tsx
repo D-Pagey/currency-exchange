@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Select from 'react-select';
 import { format } from 'date-fns';
 import { EUR, GBP, USD, currencies } from '../../constants';
@@ -11,17 +11,11 @@ export type PageExchangeTypes = {
     accounts: AccountsType;
     currencyFrom: string;
     currencyTo: string;
-    exchangeFromValue: number;
-    exchangeToValue: number;
     handleExchange: () => void;
-    handleExchangeFromChange: (event: any) => void;
-    handleExchangeToChange: (event: any) => void;
-    handleSwap: () => void;
     rates: RatesType;
+    setAccounts: (accounts: AccountsType) => void;
     setCurrencyFrom: (currency: any) => void;
-    setCurrencyFromValue: Function;
     setCurrencyTo: (currency: any) => void;
-    setCurrencyToValue: Function;
     updatedDate: Date;
 };
 
@@ -44,25 +38,61 @@ export const PageExchange: FC<PageExchangeTypes> = ({
     accounts,
     currencyFrom,
     currencyTo,
-    exchangeFromValue,
-    exchangeToValue,
-    handleExchangeFromChange,
-    handleExchangeToChange,
-    handleSwap,
-    handleExchange,
     rates,
+    setAccounts,
     setCurrencyFrom,
-    setCurrencyFromValue,
     setCurrencyTo,
-    setCurrencyToValue,
     updatedDate,
 }) => {
+    const [exchangeFromValue, setExchangeFromValue] = useState<number>(0);
+    const [exchangeToValue, setExchangeToValue] = useState<number>(0);
+
     const handleDropdownChange = (fromOrTo: string) => (option: any) => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
         if (fromOrTo === 'to') setCurrencyTo(option.value);
 
-        setCurrencyFromValue(0);
-        setCurrencyToValue(0);
+        setExchangeFromValue(0);
+        setExchangeToValue(0);
+    };
+
+    const handleExchangeFromChange = (event: any): void => {
+        const value = parseInt(event.target.value, 10);
+
+        setExchangeFromValue(value);
+
+        if (rates) {
+            const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates, value);
+            setExchangeToValue(convertedValue);
+        }
+    };
+
+    const handleExchangeToChange = (event: any): void => {
+        const value = parseInt(event.target.value, 10);
+
+        setExchangeToValue(value);
+
+        if (rates) {
+            const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates, value);
+            setExchangeFromValue(convertedValue);
+        }
+    };
+
+    const handleSwap = (): void => {
+        setCurrencyFrom(currencyTo);
+        setExchangeFromValue(exchangeToValue);
+
+        setCurrencyTo(currencyFrom);
+        setExchangeToValue(exchangeFromValue);
+    };
+
+    const handleExchange = (): void => {
+        const updatedAccounts = {
+            ...accounts,
+            [currencyFrom]: accounts[currencyFrom] - exchangeFromValue,
+            [currencyTo]: accounts[currencyTo] + exchangeToValue,
+        };
+
+        setAccounts(updatedAccounts);
     };
 
     return (
@@ -76,39 +106,41 @@ export const PageExchange: FC<PageExchangeTypes> = ({
                 {getValueFromRates(currencyFrom, currencyTo, rates, 1)}
             </S.Text>
 
-            <S.Grid>
-                <Select
-                    options={dropdownOptions}
-                    onChange={handleDropdownChange('from')}
-                    value={{ label: currencyFrom, value: currencyFrom }}
-                />
+            <form>
+                <S.Grid>
+                    <Select
+                        options={dropdownOptions}
+                        onChange={handleDropdownChange('from')}
+                        value={{ label: currencyFrom, value: currencyFrom }}
+                    />
 
-                <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+                    <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
-                <S.GridText>
-                    Balance: {currencies[currencyFrom]}
-                    {accounts[currencyFrom]}
-                </S.GridText>
+                    <S.GridText>
+                        Balance: {currencies[currencyFrom]}
+                        {accounts[currencyFrom]}
+                    </S.GridText>
 
-                <Select
-                    options={dropdownOptions}
-                    onChange={handleDropdownChange('to')}
-                    value={{ label: currencyTo, value: currencyTo }}
-                />
+                    <Select
+                        options={dropdownOptions}
+                        onChange={handleDropdownChange('to')}
+                        value={{ label: currencyTo, value: currencyTo }}
+                    />
 
-                <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+                    <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
-                <S.GridText>
-                    Balance: {currencies[currencyTo]}
-                    {accounts[currencyTo]}
-                </S.GridText>
-            </S.Grid>
+                    <S.GridText>
+                        Balance: {currencies[currencyTo]}
+                        {accounts[currencyTo]}
+                    </S.GridText>
+                </S.Grid>
 
-            <S.ButtonWrapper>
-                <Button onClick={handleSwap}>Swap</Button>
+                <S.ButtonWrapper>
+                    <Button onClick={handleSwap}>Swap</Button>
 
-                <Button onClick={handleExchange}>Exchange</Button>
-            </S.ButtonWrapper>
+                    <Button onClick={handleExchange}>Exchange</Button>
+                </S.ButtonWrapper>
+            </form>
         </S.Wrapper>
     );
 };

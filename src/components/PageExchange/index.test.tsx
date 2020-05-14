@@ -8,19 +8,11 @@ const props: PageExchangeTypes = {
     accounts: { GBP: 50, USD: 50 },
     currencyFrom: USD,
     currencyTo: GBP,
-    exchangeFromLabel: 'USD $',
-    exchangeFromValue: 50,
-    exchangeToLabel: 'GBP £',
-    exchangeToValue: 50,
     handleExchange: () => null,
-    handleExchangeFromChange: () => null,
-    handleExchangeToChange: () => null,
-    handleSwap: () => null,
     rates: { GBP: 0.8, USD: 1 },
+    setAccounts: () => null,
     setCurrencyFrom: () => null,
-    setCurrencyFromValue: () => null,
     setCurrencyTo: () => null,
-    setCurrencyToValue: () => null,
     updatedDate: new Date('March 10, 2019 03:24:00'),
 };
 
@@ -31,11 +23,15 @@ describe('PageExchange component', () => {
     });
 
     it('should call swap function when button clicked', () => {
-        const handleSwap = jest.fn();
-        const { getByText } = render(<PageExchange {...props} handleSwap={handleSwap} />);
+        const setCurrencyFrom = jest.fn();
+        const setCurrencyTo = jest.fn();
+        const { getByText } = render(
+            <PageExchange {...props} setCurrencyFrom={setCurrencyFrom} setCurrencyTo={setCurrencyTo} />,
+        );
 
         userEvent.click(getByText('Swap'));
 
-        expect(handleSwap).toHaveBeenCalled();
+        expect(setCurrencyFrom).toHaveBeenCalledWith(props.currencyTo);
+        expect(setCurrencyTo).toHaveBeenCalledWith(props.currencyFrom);
     });
 });
