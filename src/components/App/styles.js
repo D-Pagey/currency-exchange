@@ -1,11 +1,13 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { normalize } from 'polished';
+import { colours } from '../../tokens';
 
 export const GlobalStyle = createGlobalStyle`
 
   ${normalize()}
 
   body {
+    background-color: ${colours.offWhite};
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
