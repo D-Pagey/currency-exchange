@@ -1,13 +1,12 @@
-import React, { FC } from 'react';
-import { AccountsType } from '../../types';
+import React, { FC, useContext } from 'react';
+import { AccountsContextType } from '../../types';
 import { currencies } from '../../constants';
+import { AccountsContext } from '../ProviderAccounts';
 import * as S from './styles';
 
-export type PageHomeTypes = {
-    accounts: AccountsType;
-};
+export const PageHome: FC = (): JSX.Element => {
+    const { accounts } = useContext<AccountsContextType>(AccountsContext);
 
-export const PageHome: FC<PageHomeTypes> = ({ accounts }): JSX.Element => {
     return (
         <div>
             <S.Title>Your Account Balances:</S.Title>

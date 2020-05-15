@@ -1,16 +1,17 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import { format, fromUnixTime } from 'date-fns';
 
 import { useInterval } from '../../hooks/useInterval';
 import { EUR, GBP, USD, currencies } from '../../constants';
-import { AccountsType, RatesType } from '../../types';
+import { AccountsType, RatesType, AccountsContextType } from '../../types';
 import { getValueFromRates } from '../../utils';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import { Loading } from '../Loading';
 import { ErrorComponent } from '../ErrorComponent';
+import { AccountsContext } from '../ProviderAccounts';
 import * as S from './styles';
 
 export type PageExchangeTypes = {
@@ -37,7 +38,7 @@ const dropdownOptions = [
     },
 ];
 
-export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) => {
+export const PageExchange: FC = () => {
     const [rates, setRates] = useState<RatesType>();
     const [exchangeFromValue, setExchangeFromValue] = useState(0);
     const [exchangeToValue, setExchangeToValue] = useState(0);
@@ -45,6 +46,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
     const [currencyTo, setCurrencyTo] = useState<Currencies>(GBP);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState('');
+    const { accounts, setAccounts } = useContext<AccountsContextType>(AccountsContext);
 
     const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
     const invalidExchange = exchangeFromValue <= 0 || valueTooLarge || currencyFrom === currencyTo;

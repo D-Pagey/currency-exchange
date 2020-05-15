@@ -1,3 +1,5 @@
+import { GBP, EUR, USD } from '../constants';
+
 // sort out
 export type RatesType = {
     currencies: {
@@ -7,5 +9,13 @@ export type RatesType = {
 };
 
 export type AccountsType = {
+    [GBP]: number;
+    [USD]: number;
+    [EUR]: number;
     [key: string]: number;
+};
+
+export type AccountsContextType = {
+    accounts: AccountsType;
+    setAccounts: (accounts: AccountsType) => null;
 };
