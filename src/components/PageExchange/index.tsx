@@ -44,7 +44,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
     const [isLoading, setIsLoading] = useState(true);
 
     const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
-    const invalidFromValue = exchangeFromValue <= 0 || valueTooLarge;
+    const invalidExchange = exchangeFromValue <= 0 || valueTooLarge || currencyFrom === currencyTo;
 
     const fetchData = async (): Promise<void> => {
         const { data } = await axios.get(
@@ -168,7 +168,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
                     <S.ButtonWrapper>
                         <Button onClick={handleSwap}>Swap</Button>
 
-                        <Button onClick={handleExchange} isDisabled={invalidFromValue}>
+                        <Button onClick={handleExchange} isDisabled={invalidExchange}>
                             Exchange
                         </Button>
                     </S.ButtonWrapper>
