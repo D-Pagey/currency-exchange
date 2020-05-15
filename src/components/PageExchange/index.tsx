@@ -8,6 +8,7 @@ import { EUR, GBP, USD, currencies } from '../../constants';
 import { AccountsType, RatesType } from '../../types';
 import { getValueFromRates } from '../../utils';
 import { Button } from '../Button';
+import { Input } from '../Input';
 import { Loading } from '../Loading';
 import { ErrorComponent } from '../ErrorComponent';
 import * as S from './styles';
@@ -151,7 +152,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
                             {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
 
-                            <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+                            <Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
                             <S.GridText invalid={valueTooLarge}>
                                 Balance: {currencies[currencyFrom]}
@@ -166,7 +167,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
                             {exchangeFromValue > 0 && <S.Operator>+</S.Operator>}
 
-                            <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+                            <Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
                             <S.GridText>
                                 Balance: {currencies[currencyTo]}
