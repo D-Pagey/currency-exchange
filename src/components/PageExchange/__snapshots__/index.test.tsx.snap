@@ -2,23 +2,24 @@
 
 exports[`PageExchange component should render 1`] = `
 <div
-  class="sc-AxhUy kRznDN"
+  class="sc-Axmtr VnspO"
   data-testid="pageExchange"
 >
   <h2
-    class="sc-AxgMl bFYELL"
+    class="sc-AxmLO koLJNL"
   >
     Exchange Currencies:
   </h2>
+  
   <p
-    class="sc-fzplWN frdZRa"
+    class="sc-fznZeY efwNAj"
   >
     (Rates last updated at 
     May 15, 2020, 1:00:02 AM
     )
   </p>
   <p
-    class="sc-AxheI ecfIyw"
+    class="sc-fzozJi fsfLWr"
   >
     Current rate: 
     $
@@ -28,7 +29,7 @@ exports[`PageExchange component should render 1`] = `
   </p>
   <form>
     <div
-      class="sc-Axmtr fvFPlT"
+      class="sc-fzoLsD ulOTF"
     >
       <div
         class=" css-2b097c-container"
@@ -96,12 +97,12 @@ exports[`PageExchange component should render 1`] = `
         </div>
       </div>
       <input
-        class="sc-AxmLO exZnPh"
+        class="sc-fzpans bDfLHO"
         type="number"
         value="0"
       />
       <p
-        class="sc-fzozJi jaFCks"
+        class="sc-fzplWN kDiOTf"
       >
         Balance: 
         $
@@ -173,12 +174,12 @@ exports[`PageExchange component should render 1`] = `
         </div>
       </div>
       <input
-        class="sc-AxmLO exZnPh"
+        class="sc-fzpans bDfLHO"
         type="number"
         value="0"
       />
       <p
-        class="sc-fzozJi jaFCks"
+        class="sc-fzplWN kDiOTf"
       >
         Balance: 
         £
@@ -186,7 +187,7 @@ exports[`PageExchange component should render 1`] = `
       </p>
     </div>
     <div
-      class="sc-fzpans djutXY"
+      class="sc-fznKkj BtTSE"
     >
       <button
         class="sc-AxjAm hLmfBx"

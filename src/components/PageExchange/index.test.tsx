@@ -36,6 +36,13 @@ describe('PageExchange component', () => {
         await waitFor(() => getByTestId('loading'));
     });
 
+    it('should render an error component if API throws error', async () => {
+        mockedAxios.get.mockRejectedValueOnce({ error: 'API limit reached' });
+
+        const { getByTestId } = render(<PageExchange {...props} />);
+        await waitFor(() => getByTestId('errorComponent'));
+    });
+
     it.todo('should handle swap');
     it.todo('should handle exchanging currencies');
     it.todo('should exchange from to to when typing');
