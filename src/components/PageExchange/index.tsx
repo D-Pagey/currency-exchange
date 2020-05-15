@@ -142,7 +142,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
                         {getValueFromRates(currencyFrom, currencyTo, rates.currencies, 1)}
                     </S.Text>
 
-                    <form>
+                    <form data-testid="pageExchangeForm">
                         <S.Grid>
                             <Select
                                 options={dropdownOptions}
@@ -152,7 +152,12 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
                             {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
 
-                            <Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+                            <Input
+                                onChange={handleExchangeFromChange}
+                                testId="exchangeFromInput"
+                                type="number"
+                                value={exchangeFromValue}
+                            />
 
                             <S.GridText invalid={valueTooLarge}>
                                 Balance: {currencies[currencyFrom]}
@@ -167,7 +172,12 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
                             {exchangeFromValue > 0 && <S.Operator>+</S.Operator>}
 
-                            <Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+                            <Input
+                                onChange={handleExchangeToChange}
+                                testId="exchangeToInput"
+                                type="number"
+                                value={exchangeToValue}
+                            />
 
                             <S.GridText>
                                 Balance: {currencies[currencyTo]}

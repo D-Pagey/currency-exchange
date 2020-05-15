@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { PageExchange, PageExchangeTypes } from '.';
 
 jest.mock('axios');
@@ -12,22 +13,22 @@ const props: PageExchangeTypes = {
     setAccounts: () => null,
 };
 
+const mockResponse = {
+    data: {
+        rates: {
+            GBP: 0.5,
+            EUR: 2,
+        },
+        timestamp: 1589500802,
+    },
+};
+
 describe('PageExchange component', () => {
     it('should render', async () => {
-        const mockResponse = {
-            data: {
-                rates: {
-                    GBP: 0.5,
-                    EUR: 2,
-                },
-                timestamp: 1589500802,
-            },
-        };
-
         mockedAxios.get.mockResolvedValue(mockResponse);
 
         const { container, getByTestId } = render(<PageExchange {...props} />);
-        await waitFor(() => expect(getByTestId('pageExchange')));
+        await waitFor(() => expect(getByTestId('pageExchangeForm')));
         expect(container.firstChild).toMatchSnapshot();
     });
 
@@ -43,8 +44,38 @@ describe('PageExchange component', () => {
         await waitFor(() => getByTestId('errorComponent'));
     });
 
+    it('should exchange the exchangeFrom value to exchangeTo value', async () => {
+        mockedAxios.get.mockResolvedValue(mockResponse);
+
+        const { getByTestId } = render(<PageExchange {...props} />);
+        await waitFor(() => getByTestId('pageExchangeForm'));
+
+        const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
+        const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
+        const value = '10';
+        const converted = '5';
+
+        userEvent.type(inputFrom, value);
+
+        await waitFor(() => expect(inputTo.value).toEqual(converted));
+    });
+
+    it('should exchange the exchangeTo value to exchangeFrom value', async () => {
+        mockedAxios.get.mockResolvedValue(mockResponse);
+
+        const { getByTestId } = render(<PageExchange {...props} />);
+        await waitFor(() => getByTestId('pageExchangeForm'));
+
+        const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
+        const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
+        const value = '10';
+        const converted = '20';
+
+        userEvent.type(inputTo, value);
+
+        await waitFor(() => expect(inputFrom.value).toEqual(converted));
+    });
+
     it.todo('should handle swap');
     it.todo('should handle exchanging currencies');
-    it.todo('should exchange from to to when typing');
-    it.todo('should exchange to to from when typing');
 });

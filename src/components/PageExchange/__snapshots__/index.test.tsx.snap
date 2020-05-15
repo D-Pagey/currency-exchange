@@ -27,7 +27,9 @@ exports[`PageExchange component should render 1`] = `
     £
     0.5
   </p>
-  <form>
+  <form
+    data-testid="pageExchangeForm"
+  >
     <div
       class="sc-fzpans fUsxuB"
     >
@@ -98,7 +100,7 @@ exports[`PageExchange component should render 1`] = `
       </div>
       <input
         class="sc-AxhCb kEnIQe"
-        data-testid="input"
+        data-testid="exchangeFromInput"
         type="number"
         value="0"
       />
@@ -176,7 +178,7 @@ exports[`PageExchange component should render 1`] = `
       </div>
       <input
         class="sc-AxhCb kEnIQe"
-        data-testid="input"
+        data-testid="exchangeToInput"
         type="number"
         value="0"
       />
