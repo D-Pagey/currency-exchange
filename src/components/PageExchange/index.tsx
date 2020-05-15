@@ -37,7 +37,6 @@ const dropdownOptions = [
 
 export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) => {
     const [rates, setRates] = useState<RatesType>();
-    const [updatedDate, setUpdatedDate] = useState<Date>();
     const [exchangeFromValue, setExchangeFromValue] = useState(0);
     const [exchangeToValue, setExchangeToValue] = useState(0);
     const [currencyFrom, setCurrencyFrom] = useState<Currencies>(USD);
@@ -52,8 +51,14 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
             `https://openexchangerates.org/api/latest.json?app_id=${process.env.REACT_APP_API_ID}`,
         );
 
-        setRates({ USD: 1, GBP: data.rates.GBP, EUR: data.rates.EUR });
-        setUpdatedDate(fromUnixTime(data.timestamp));
+        setRates({
+            currencies: {
+                USD: 1,
+                GBP: data.rates.GBP,
+                EUR: data.rates.EUR,
+            },
+            updatedDate: fromUnixTime(data.timestamp),
+        });
         setIsLoading(false);
     };
 
@@ -79,7 +84,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
         setExchangeFromValue(value);
 
         if (rates) {
-            const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates, value);
+            const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates.currencies, value);
             setExchangeToValue(convertedValue);
         }
     };
@@ -90,7 +95,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
         setExchangeToValue(value);
 
         if (rates) {
-            const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates, value);
+            const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates.currencies, value);
             setExchangeFromValue(convertedValue);
         }
     };
@@ -115,58 +120,62 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
     if (isLoading) return <Loading isLoading />;
 
-    return (
-        <S.Wrapper>
-            <S.Title>Exchange Currencies:</S.Title>
+    if (rates) {
+        return (
+            <S.Wrapper>
+                <S.Title>Exchange Currencies:</S.Title>
 
-            <S.ItalicSmall>(Rates last updated at {format(updatedDate!, 'PPpp')})</S.ItalicSmall>
+                <S.ItalicSmall>(Rates last updated at {format(rates.updatedDate, 'PPpp')})</S.ItalicSmall>
 
-            <S.Text>
-                Current rate: {currencies[currencyFrom]}1 = {currencies[currencyTo]}
-                {getValueFromRates(currencyFrom, currencyTo, rates!, 1)}
-            </S.Text>
+                <S.Text>
+                    Current rate: {currencies[currencyFrom]}1 = {currencies[currencyTo]}
+                    {getValueFromRates(currencyFrom, currencyTo, rates.currencies, 1)}
+                </S.Text>
 
-            <form>
-                <S.Grid>
-                    <Select
-                        options={dropdownOptions}
-                        onChange={handleDropdownChange('from')}
-                        value={{ label: currencyFrom, value: currencyFrom }}
-                    />
+                <form>
+                    <S.Grid>
+                        <Select
+                            options={dropdownOptions}
+                            onChange={handleDropdownChange('from')}
+                            value={{ label: currencyFrom, value: currencyFrom }}
+                        />
 
-                    {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
+                        {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
 
-                    <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
+                        <S.Input value={exchangeFromValue} type="number" onChange={handleExchangeFromChange} />
 
-                    <S.GridText invalid={valueTooLarge}>
-                        Balance: {currencies[currencyFrom]}
-                        {accounts[currencyFrom]}
-                    </S.GridText>
+                        <S.GridText invalid={valueTooLarge}>
+                            Balance: {currencies[currencyFrom]}
+                            {accounts[currencyFrom]}
+                        </S.GridText>
 
-                    <Select
-                        options={dropdownOptions}
-                        onChange={handleDropdownChange('to')}
-                        value={{ label: currencyTo, value: currencyTo }}
-                    />
+                        <Select
+                            options={dropdownOptions}
+                            onChange={handleDropdownChange('to')}
+                            value={{ label: currencyTo, value: currencyTo }}
+                        />
 
-                    {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
+                        {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
 
-                    <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
+                        <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
-                    <S.GridText>
-                        Balance: {currencies[currencyTo]}
-                        {accounts[currencyTo]}
-                    </S.GridText>
-                </S.Grid>
+                        <S.GridText>
+                            Balance: {currencies[currencyTo]}
+                            {accounts[currencyTo]}
+                        </S.GridText>
+                    </S.Grid>
 
-                <S.ButtonWrapper>
-                    <Button onClick={handleSwap}>Swap</Button>
+                    <S.ButtonWrapper>
+                        <Button onClick={handleSwap}>Swap</Button>
 
-                    <Button onClick={handleExchange} isDisabled={invalidFromValue}>
-                        Exchange
-                    </Button>
-                </S.ButtonWrapper>
-            </form>
-        </S.Wrapper>
-    );
+                        <Button onClick={handleExchange} isDisabled={invalidFromValue}>
+                            Exchange
+                        </Button>
+                    </S.ButtonWrapper>
+                </form>
+            </S.Wrapper>
+        );
+    }
+
+    return <div />;
 };

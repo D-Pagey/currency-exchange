@@ -1,6 +1,9 @@
 // sort out
 export type RatesType = {
-    [key: string]: number;
+    currencies: {
+        [key: string]: number;
+    };
+    updatedDate: Date;
 };
 
 export type AccountsType = {
