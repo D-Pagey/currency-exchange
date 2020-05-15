@@ -46,7 +46,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
     const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
     const invalidFromValue = exchangeFromValue <= 0 || valueTooLarge;
 
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
         const { data } = await axios.get(
             `https://openexchangerates.org/api/latest.json?app_id=${process.env.REACT_APP_API_ID}`,
         );
@@ -122,7 +122,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
 
     if (rates) {
         return (
-            <S.Wrapper>
+            <S.Wrapper data-testid="pageExchange">
                 <S.Title>Exchange Currencies:</S.Title>
 
                 <S.ItalicSmall>(Rates last updated at {format(rates.updatedDate, 'PPpp')})</S.ItalicSmall>
@@ -155,7 +155,7 @@ export const PageExchange: FC<PageExchangeTypes> = ({ accounts, setAccounts }) =
                             value={{ label: currencyTo, value: currencyTo }}
                         />
 
-                        {exchangeToValue > 0 && <S.Operator>+</S.Operator>}
+                        {exchangeFromValue > 0 && <S.Operator>+</S.Operator>}
 
                         <S.Input value={exchangeToValue} type="number" onChange={handleExchangeToChange} />
 
