@@ -17,6 +17,8 @@ export const Input: FC<InputTypes> = ({ prefix, onChange, testId = 'input', valu
             prefix={prefix}
             thousandSeparator={true}
             value={value}
+            decimalScale={2}
+            fixedDecimalScale
         />
     );
 };

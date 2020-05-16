@@ -7,6 +7,6 @@ exports[`Input component should render 1`] = `
   inputmode="numeric"
   placeholder="undefined0"
   type="text"
-  value="10"
+  value="10.00"
 />
 `;

@@ -78,8 +78,8 @@ export const PageExchange: FC = () => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
         if (fromOrTo === 'to') setCurrencyTo(option.value);
 
-        setExchangeFromValue(0);
-        setExchangeToValue(0);
+        setExchangeFromValue(undefined);
+        setExchangeToValue(undefined);
     };
 
     const handleExchangeFromChange = (event: ChangeEvent<HTMLInputElement>): void => {

@@ -53,7 +53,7 @@ describe('PageExchange component', () => {
         const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
         const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
         const value = '10';
-        const converted = '£0.5';
+        const converted = '£0.50';
 
         userEvent.type(inputFrom, value);
 
@@ -69,7 +69,7 @@ describe('PageExchange component', () => {
         const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
         const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
         const value = '10';
-        const converted = '$2';
+        const converted = '$2.00';
 
         userEvent.type(inputTo, value);
 
