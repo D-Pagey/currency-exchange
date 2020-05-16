@@ -1,8 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { PageHome, PageHomeTypes } from '.';
+import { render } from '../../test-utils';
+import { PageHome } from '.';
 
-const props: PageHomeTypes = {
+const context = {
     accounts: {
         GBP: 50,
         USD: 50,
@@ -12,7 +12,7 @@ const props: PageHomeTypes = {
 
 describe('PageHome component', () => {
     it('should render', () => {
-        const { container } = render(<PageHome {...props} />);
+        const { container } = render(<PageHome />, context);
         expect(container.firstChild).toMatchSnapshot();
     });
 });

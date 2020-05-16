@@ -19,3 +19,5 @@ export type AccountsContextType = {
     accounts: AccountsType;
     setAccounts: (accounts: AccountsType) => null;
 };
+
+export type Currencies = 'USD' | 'EUR' | 'GBP';

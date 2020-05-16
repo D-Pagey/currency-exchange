@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-const initialAccounts = {
+export const initialAccounts = {
     EUR: 50,
     GBP: 50,
     USD: 50,

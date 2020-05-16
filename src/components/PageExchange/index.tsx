@@ -5,7 +5,7 @@ import { format, fromUnixTime } from 'date-fns';
 
 import { useInterval } from '../../hooks/useInterval';
 import { EUR, GBP, USD, currencies } from '../../constants';
-import { AccountsType, RatesType, AccountsContextType } from '../../types';
+import { AccountsContextType, Currencies, RatesType } from '../../types';
 import { getValueFromRates } from '../../utils';
 import { Button } from '../Button';
 import { Input } from '../Input';
@@ -13,13 +13,6 @@ import { Loading } from '../Loading';
 import { ErrorComponent } from '../ErrorComponent';
 import { AccountsContext } from '../ProviderAccounts';
 import * as S from './styles';
-
-export type PageExchangeTypes = {
-    accounts: AccountsType;
-    setAccounts: (accounts: AccountsType) => void;
-};
-
-type Currencies = 'USD' | 'EUR' | 'GBP';
 
 const POLLING_INTERVAL = 10000;
 

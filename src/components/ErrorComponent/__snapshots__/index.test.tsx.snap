@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorComponent should render 1`] = `
+<div
+  class="sc-AxjAm kyFXYz"
+  data-testid="errorComponent"
+>
+  <img
+    alt="alert"
+    class="sc-AxirZ ienVnP"
+    src="alert.svg"
+  />
+  <p
+    class="sc-AxiKw dQKCBV"
+  >
+    API limit reached
+  </p>
+</div>
+`;

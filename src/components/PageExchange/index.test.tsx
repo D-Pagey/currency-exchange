@@ -1,14 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PageExchange, PageExchangeTypes } from '.';
+import { render, waitFor } from '../../test-utils';
+import { PageExchange } from '.';
 
 jest.mock('axios');
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const props: PageExchangeTypes = {
+const context = {
     accounts: { GBP: 50, USD: 50 },
     setAccounts: () => null,
 };
@@ -27,27 +27,27 @@ describe('PageExchange component', () => {
     it('should render', async () => {
         mockedAxios.get.mockResolvedValue(mockResponse);
 
-        const { container, getByTestId } = render(<PageExchange {...props} />);
+        const { container, getByTestId } = render(<PageExchange />, context);
         await waitFor(() => expect(getByTestId('pageExchangeForm')));
         expect(container.firstChild).toMatchSnapshot();
     });
 
     it('should render a loading spinner initially', async () => {
-        const { getByTestId } = render(<PageExchange {...props} />);
+        const { getByTestId } = render(<PageExchange />, context);
         await waitFor(() => getByTestId('loading'));
     });
 
     it('should render an error component if API throws error', async () => {
         mockedAxios.get.mockRejectedValueOnce({ error: 'API limit reached' });
 
-        const { getByTestId } = render(<PageExchange {...props} />);
+        const { getByTestId } = render(<PageExchange />, context);
         await waitFor(() => getByTestId('errorComponent'));
     });
 
     it('should exchange the exchangeFrom value to exchangeTo value', async () => {
         mockedAxios.get.mockResolvedValue(mockResponse);
 
-        const { getByTestId } = render(<PageExchange {...props} />);
+        const { getByTestId } = render(<PageExchange />, context);
         await waitFor(() => getByTestId('pageExchangeForm'));
 
         const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
@@ -63,7 +63,7 @@ describe('PageExchange component', () => {
     it('should exchange the exchangeTo value to exchangeFrom value', async () => {
         mockedAxios.get.mockResolvedValue(mockResponse);
 
-        const { getByTestId } = render(<PageExchange {...props} />);
+        const { getByTestId } = render(<PageExchange />, context);
         await waitFor(() => getByTestId('pageExchangeForm'));
 
         const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
