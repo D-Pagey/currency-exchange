@@ -2,27 +2,25 @@
 
 # Revolut Currency Exchange Widget
 
--   flesh out readme
--   assuming a "pocket" is an account
--   elected not to use redux as thought local state was cleaner
--   mention how util function not scalable
--   if I had more time
--   mention handle changes
+This is my submission for the Currency Exchange Widget challenge, you can see a live demo hosted
+on [Netlify](https://pagey-revolut.netlify.app/).
 
-## Common Scripts
+### Useful Scripts
 
-In the project directory, you can run:
+-   `yarn` - install dependencies
+-   `yarn start` - run the app locally and go to [http://localhost:3000](http://localhost:3000) in a browser.
+-   `yarn test` - runs the test suite
+-   `yarn build` - builds the app for production to the `/build` folder
 
-### `yarn start`
+### Developer Notes
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I made the assumption that the reference to "pockets" in the brief are essentially "accounts" or "wallets".
+I also elected to not use Redux as I thought that the state wasn't complicated enough to justify the boilerplate
+that Redux brings, especially when combined with TypeScript. I feel that the `useContext` hook is a clean solution
+to small global state management.
 
-### `yarn test`
+There are 2 functions in the repo that not particularly DRY - the input `onChange` handlers. With more time, I would
+find a cleaner solution.
 
-Launches the test runner in the interactive watch mode.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In my utility function `getValueFromRates`, it was specifically built for the main 3 currencies. However, with a refactor,
+the logic could be applied to take any currencies that are all relative to a base currency.
