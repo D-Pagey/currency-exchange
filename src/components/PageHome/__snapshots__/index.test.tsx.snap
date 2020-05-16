@@ -11,28 +11,52 @@ exports[`PageHome component should render 1`] = `
     class="sc-AxirZ diVtBJ"
   >
     <li
-      class="sc-AxiKw bMLjCv"
+      class="sc-AxiKw iohMKx"
     >
-      GBP
-      : 
-      £
-      50
+      <span
+        class="sc-AxhCb BDEYl"
+      >
+        GBP
+        :
+      </span>
+      <span
+        class="sc-AxhUy dkLXkA"
+      >
+        £
+        50
+      </span>
     </li>
     <li
-      class="sc-AxiKw bMLjCv"
+      class="sc-AxiKw iohMKx"
     >
-      USD
-      : 
-      $
-      50
+      <span
+        class="sc-AxhCb BDEYl"
+      >
+        USD
+        :
+      </span>
+      <span
+        class="sc-AxhUy dkLXkA"
+      >
+        $
+        50
+      </span>
     </li>
     <li
-      class="sc-AxiKw bMLjCv"
+      class="sc-AxiKw iohMKx"
     >
-      EUR
-      : 
-      €
-      50
+      <span
+        class="sc-AxhCb BDEYl"
+      >
+        EUR
+        :
+      </span>
+      <span
+        class="sc-AxhUy dkLXkA"
+      >
+        €
+        50
+      </span>
     </li>
   </ul>
 </div>

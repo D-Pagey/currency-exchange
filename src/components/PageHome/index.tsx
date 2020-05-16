@@ -13,8 +13,11 @@ export const PageHome: FC = (): JSX.Element => {
             <S.List>
                 {Object.keys(accounts).map((account) => (
                     <S.Item key={account}>
-                        {account}: {currencies[account]}
-                        {accounts[account]}
+                        <S.Key>{account}:</S.Key>
+                        <S.Value>
+                            {currencies[account]}
+                            {accounts[account]}
+                        </S.Value>
                     </S.Item>
                 ))}
             </S.List>

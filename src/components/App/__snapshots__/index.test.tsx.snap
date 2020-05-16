@@ -2,10 +2,10 @@
 
 exports[`App component should render 1`] = `
 <div
-  class="sc-fzoLag cQZvra"
+  class="sc-fzpjYC strXD"
 >
   <header
-    class="sc-fzoyAV cvilFk"
+    class="sc-fzoXzr gTRuHK"
   >
     <svg
       data-testid="logo-svg"
@@ -204,39 +204,63 @@ exports[`App component should render 1`] = `
       class="sc-AxirZ diVtBJ"
     >
       <li
-        class="sc-AxiKw bMLjCv"
+        class="sc-AxiKw iohMKx"
       >
-        EUR
-        : 
-        €
-        50
+        <span
+          class="sc-AxhCb BDEYl"
+        >
+          EUR
+          :
+        </span>
+        <span
+          class="sc-AxhUy dkLXkA"
+        >
+          €
+          50
+        </span>
       </li>
       <li
-        class="sc-AxiKw bMLjCv"
+        class="sc-AxiKw iohMKx"
       >
-        GBP
-        : 
-        £
-        50
+        <span
+          class="sc-AxhCb BDEYl"
+        >
+          GBP
+          :
+        </span>
+        <span
+          class="sc-AxhUy dkLXkA"
+        >
+          £
+          50
+        </span>
       </li>
       <li
-        class="sc-AxiKw bMLjCv"
+        class="sc-AxiKw iohMKx"
       >
-        USD
-        : 
-        $
-        50
+        <span
+          class="sc-AxhCb BDEYl"
+        >
+          USD
+          :
+        </span>
+        <span
+          class="sc-AxhUy dkLXkA"
+        >
+          $
+          50
+        </span>
       </li>
     </ul>
   </div>
   <div
-    class="sc-fzoXzr gTTFYC"
+    class="sc-fznxsB gOmvzi"
   >
     <a
       href="/"
     >
       <button
-        class="sc-AxhCb sc-AxhUy QkRkL"
+        class="sc-AxgMl sc-AxheI jxstGT"
         type="button"
       >
         Home Page
@@ -246,7 +270,7 @@ exports[`App component should render 1`] = `
       href="/exchange"
     >
       <button
-        class="sc-AxhCb sc-AxhUy QkRkL"
+        class="sc-AxgMl sc-AxheI jxstGT"
         type="button"
       >
         Exchange Page

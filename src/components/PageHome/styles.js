@@ -12,7 +12,14 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
-    color: ${colours.blue};
     padding: 0 0 1rem;
     font-size: 2rem;
+`;
+
+export const Key = styled.span`
+    padding: 0 1rem 0 0;
+`;
+
+export const Value = styled.span`
+    color: ${colours.darkBlue};
 `;
