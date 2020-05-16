@@ -33,16 +33,17 @@ const dropdownOptions = [
 
 export const PageExchange: FC = () => {
     const [rates, setRates] = useState<RatesType>();
-    const [exchangeFromValue, setExchangeFromValue] = useState(0);
-    const [exchangeToValue, setExchangeToValue] = useState(0);
+    const [exchangeFromValue, setExchangeFromValue] = useState<number | undefined>();
+    const [exchangeToValue, setExchangeToValue] = useState<number | undefined>();
     const [currencyFrom, setCurrencyFrom] = useState<Currencies>(USD);
     const [currencyTo, setCurrencyTo] = useState<Currencies>(GBP);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState('');
     const { accounts, setAccounts } = useContext<AccountsContextType>(AccountsContext);
 
-    const valueTooLarge = exchangeFromValue > accounts[currencyFrom];
-    const invalidExchange = exchangeFromValue <= 0 || valueTooLarge || currencyFrom === currencyTo;
+    const valueTooLarge = exchangeFromValue && exchangeFromValue > accounts[currencyFrom];
+    const invalidExchange =
+        (exchangeFromValue && exchangeFromValue <= 0) || valueTooLarge || currencyFrom === currencyTo;
 
     const fetchData = async (): Promise<void> => {
         try {
@@ -82,7 +83,7 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeFromChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const value = parseInt(event.target.value, 10);
+        const value = parseInt(event.target.value.slice(1), 10);
 
         setExchangeFromValue(value);
 
@@ -93,7 +94,7 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeToChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const value = parseInt(event.target.value, 10);
+        const value = parseInt(event.target.value.slice(1), 10);
 
         setExchangeToValue(value);
 
@@ -112,13 +113,15 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchange = (): void => {
-        const updatedAccounts = {
-            ...accounts,
-            [currencyFrom]: accounts[currencyFrom] - exchangeFromValue,
-            [currencyTo]: accounts[currencyTo] + exchangeToValue,
-        };
+        if (exchangeFromValue && exchangeToValue) {
+            const updatedAccounts = {
+                ...accounts,
+                [currencyFrom]: accounts[currencyFrom] - exchangeFromValue,
+                [currencyTo]: accounts[currencyTo] + exchangeToValue,
+            };
 
-        setAccounts(updatedAccounts);
+            setAccounts(updatedAccounts);
+        }
     };
 
     return (
@@ -145,12 +148,12 @@ export const PageExchange: FC = () => {
                                 value={{ label: currencyFrom, value: currencyFrom }}
                             />
 
-                            {exchangeFromValue > 0 && <S.Operator>-</S.Operator>}
+                            {exchangeFromValue !== undefined && <S.Operator>-</S.Operator>}
 
                             <Input
+                                prefix={currencies[currencyFrom]}
                                 onChange={handleExchangeFromChange}
                                 testId="exchangeFromInput"
-                                type="number"
                                 value={exchangeFromValue}
                             />
 
@@ -165,12 +168,12 @@ export const PageExchange: FC = () => {
                                 value={{ label: currencyTo, value: currencyTo }}
                             />
 
-                            {exchangeFromValue > 0 && <S.Operator>+</S.Operator>}
+                            {exchangeFromValue !== undefined && <S.Operator>+</S.Operator>}
 
                             <Input
+                                prefix={currencies[currencyTo]}
                                 onChange={handleExchangeToChange}
                                 testId="exchangeToInput"
-                                type="number"
                                 value={exchangeToValue}
                             />
 

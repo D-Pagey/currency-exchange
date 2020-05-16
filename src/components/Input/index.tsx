@@ -1,13 +1,22 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import * as S from './styles';
 
 type InputTypes = {
-    onChange: Function;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    value?: number | string;
+    prefix?: string;
     testId?: string;
-    type?: string;
-    value: string | number;
 };
 
-export const Input: FC<InputTypes> = ({ onChange, testId = 'input', type = 'text', value }) => {
-    return <S.Input data-testid={testId} onChange={onChange} type={type} value={value} />;
+export const Input: FC<InputTypes> = ({ prefix, onChange, testId = 'input', value }) => {
+    return (
+        <S.NumberFormatInput
+            data-testid={testId}
+            onChange={onChange}
+            placeholder={`${prefix}0`}
+            prefix={prefix}
+            thousandSeparator={true}
+            value={value}
+        />
+    );
 };

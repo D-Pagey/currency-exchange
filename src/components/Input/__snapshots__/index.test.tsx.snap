@@ -4,7 +4,9 @@ exports[`Input component should render 1`] = `
 <input
   class="sc-AxjAm fDCHeJ"
   data-testid=""
-  type=""
+  inputmode="numeric"
+  placeholder="undefined0"
+  type="text"
   value="10"
 />
 `;

@@ -101,8 +101,10 @@ exports[`PageExchange component should render 1`] = `
       <input
         class="sc-AxhCb kEnIQe"
         data-testid="exchangeFromInput"
-        type="number"
-        value="0"
+        inputmode="numeric"
+        placeholder="$0"
+        type="text"
+        value=""
       />
       <p
         class="sc-fzplWN kDiOTf"
@@ -179,8 +181,10 @@ exports[`PageExchange component should render 1`] = `
       <input
         class="sc-AxhCb kEnIQe"
         data-testid="exchangeToInput"
-        type="number"
-        value="0"
+        inputmode="numeric"
+        placeholder="£0"
+        type="text"
+        value=""
       />
       <p
         class="sc-fzplWN kDiOTf"
@@ -200,8 +204,7 @@ exports[`PageExchange component should render 1`] = `
         Swap
       </button>
       <button
-        class="sc-AxjAm sc-AxiKw dJMsqA"
-        disabled=""
+        class="sc-AxjAm hLmfBx"
         type="button"
       >
         Exchange
