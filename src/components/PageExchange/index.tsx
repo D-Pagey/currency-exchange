@@ -77,6 +77,7 @@ export const PageExchange: FC = () => {
     };
 
     useEffect(() => {
+        // fetches data once on initial component load
         fetchData();
     }, []);
 
@@ -84,19 +85,20 @@ export const PageExchange: FC = () => {
         fetchData();
     }, POLLING_INTERVAL);
 
+    const resetInputs = (value: number | undefined): void => {
+        setExchangeFromValue(value);
+        setExchangeToValue(value);
+    };
+
     const handleDropdownChange = (fromOrTo: string) => (option: any) => {
         if (fromOrTo === 'from') setCurrencyFrom(option.value);
         if (fromOrTo === 'to') setCurrencyTo(option.value);
 
-        setExchangeFromValue(undefined);
-        setExchangeToValue(undefined);
+        resetInputs(undefined);
     };
 
     const handleExchangeFromChange = (value: number): void => {
-        if (value === 0) {
-            setExchangeFromValue(0);
-            setExchangeToValue(0);
-        }
+        if (value === 0) resetInputs(0);
 
         if (value) {
             setExchangeFromValue(Number(value.toFixed(2)));
@@ -109,10 +111,7 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeToChange = (value: number): void => {
-        if (value === 0) {
-            setExchangeFromValue(0);
-            setExchangeToValue(0);
-        }
+        if (value === 0) resetInputs(0);
 
         if (value) {
             setExchangeToValue(Number(value.toFixed(2)));
@@ -146,8 +145,7 @@ export const PageExchange: FC = () => {
             setAccounts(updatedAccounts);
         }
 
-        setExchangeFromValue(0);
-        setExchangeToValue(0);
+        resetInputs(0);
     };
 
     return (

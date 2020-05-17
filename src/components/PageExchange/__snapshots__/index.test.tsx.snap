@@ -198,13 +198,13 @@ exports[`PageExchange component should render 1`] = `
       class="sc-fznKkj BtTSE"
     >
       <button
-        class="sc-AxjAm kggysP"
+        class="sc-AxjAm hZaWIQ"
         type="button"
       >
         Swap
       </button>
       <button
-        class="sc-AxjAm sc-AxiKw jpyNC"
+        class="sc-AxjAm sc-AxiKw VnCzu"
         disabled=""
         type="button"
       >

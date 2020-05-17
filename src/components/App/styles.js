@@ -26,7 +26,7 @@ export const Wrapper = styled.div`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 85vh;
     margin: 0 auto;
     max-width: 375px;
     min-height: 600px;

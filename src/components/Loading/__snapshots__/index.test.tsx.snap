@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading component should render 1`] = `
+<div
+  class="sc-AxjAm eVIwUz"
+  data-testid="loading"
+>
+  <div
+    class="css-9ebb9a"
+  >
+    <div
+      class="css-1m2ccf8"
+    />
+    <div
+      class="css-x0lzl3"
+    />
+    <div
+      class="css-3nmchs"
+    />
+    <div
+      class="css-r7gb"
+    />
+    <div
+      class="css-vr5200"
+    />
+    <div
+      class="css-1p14snf"
+    />
+  </div>
+</div>
+`;

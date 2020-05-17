@@ -3,7 +3,6 @@ import axios from 'axios';
 import userEvent from '@testing-library/user-event';
 import { render, waitFor } from '../../test-utils';
 import { PageExchange } from '.';
-import { isToday } from 'date-fns';
 
 jest.mock('axios');
 

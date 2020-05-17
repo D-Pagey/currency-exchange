@@ -7,7 +7,7 @@ export const Button = styled.button.attrs({
     background-color: ${colours.blue};
     border: none;
     border-radius: 2rem;
-    color: white;
+    color: ${colours.white};
     cursor: pointer;
     font-size: 1rem;
     font-weight: 500;
@@ -25,21 +25,21 @@ export const Button = styled.button.attrs({
 
 export const SecondaryButton = styled(Button)`
     color: ${colours.blue};
-    background-color: white;
+    background-color: ${colours.white};
     border: 1px solid ${colours.blue};
 
     &:hover {
-        background-color: white;
+        background-color: ${colours.white};
     }
 `;
 
 export const DisabledButton = styled(Button)`
-    color: white;
-    background-color: grey;
+    color: ${colours.white};
+    background-color: ${colours.darkGrey};
     border: none;
     cursor: initial;
 
     &:hover {
-        background-color: grey;
+        background-color: ${colours.darkGrey};
     }
 `;
