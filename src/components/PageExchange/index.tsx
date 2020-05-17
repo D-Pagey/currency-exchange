@@ -61,14 +61,6 @@ export const PageExchange: FC = () => {
                 `https://openexchangerates.org/api/latest.json?app_id=${process.env.REACT_APP_API_ID}`,
             );
 
-            // const data = {
-            //     rates: {
-            //         GBP: 0.5,
-            //         EUR: 2,
-            //     },
-            //     timestamp: 1589500802,
-            // };
-
             setRates({
                 currencies: {
                     USD: 1,
@@ -153,6 +145,9 @@ export const PageExchange: FC = () => {
 
             setAccounts(updatedAccounts);
         }
+
+        setExchangeFromValue(0);
+        setExchangeToValue(0);
     };
 
     return (
