@@ -42,14 +42,32 @@ export const PageExchange: FC = () => {
     const { accounts, setAccounts } = useContext<AccountsContextType>(AccountsContext);
 
     const valueTooLarge = exchangeFromValue && exchangeFromValue > accounts[currencyFrom];
-    const invalidExchange =
-        (exchangeFromValue && exchangeFromValue <= 0) || valueTooLarge || currencyFrom === currencyTo;
+
+    const invalidExchange = (): boolean => {
+        if (valueTooLarge) return true;
+        if (currencyFrom === currencyTo) return true;
+
+        if (exchangeFromValue === 0) return true;
+        if (exchangeToValue === 0) return true;
+        if (exchangeFromValue === undefined) return true;
+        if (exchangeToValue === undefined) return true;
+
+        return false;
+    };
 
     const fetchData = async (): Promise<void> => {
         try {
             const { data } = await axios.get(
                 `https://openexchangerates.org/api/latest.json?app_id=${process.env.REACT_APP_API_ID}`,
             );
+
+            // const data = {
+            //     rates: {
+            //         GBP: 0.5,
+            //         EUR: 2,
+            //     },
+            //     timestamp: 1589500802,
+            // };
 
             setRates({
                 currencies: {
@@ -83,6 +101,11 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeFromChange = (value: number): void => {
+        if (value === 0) {
+            setExchangeFromValue(0);
+            setExchangeToValue(0);
+        }
+
         if (value) {
             setExchangeFromValue(Number(value.toFixed(2)));
 
@@ -94,6 +117,11 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeToChange = (value: number): void => {
+        if (value === 0) {
+            setExchangeFromValue(0);
+            setExchangeToValue(0);
+        }
+
         if (value) {
             setExchangeToValue(Number(value.toFixed(2)));
 
@@ -189,7 +217,7 @@ export const PageExchange: FC = () => {
                         <S.ButtonWrapper>
                             <Button onClick={handleSwap}>Swap</Button>
 
-                            <Button onClick={handleExchange} isDisabled={invalidExchange}>
+                            <Button onClick={handleExchange} isDisabled={invalidExchange()}>
                                 Exchange
                             </Button>
                         </S.ButtonWrapper>
