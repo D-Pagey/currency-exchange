@@ -16,6 +16,7 @@ export const Button = styled.button.attrs({
     transition: all 0.2s ease 0s;
     padding: 0.625em 1.5em;
     width: 160px;
+    min-width: 110px;
 
     &:hover {
         background-color: ${colours.darkBlue};

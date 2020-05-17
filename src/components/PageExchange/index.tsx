@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState, useContext } from 'react';
+import React, { FC, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import { format, fromUnixTime } from 'date-fns';
@@ -82,9 +82,7 @@ export const PageExchange: FC = () => {
         setExchangeToValue(undefined);
     };
 
-    const handleExchangeFromChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const value = parseInt(event.target.value.slice(1), 10);
-
+    const handleExchangeFromChange = (value: number): void => {
         setExchangeFromValue(value);
 
         if (rates) {
@@ -93,9 +91,7 @@ export const PageExchange: FC = () => {
         }
     };
 
-    const handleExchangeToChange = (event: ChangeEvent<HTMLInputElement>): void => {
-        const value = parseInt(event.target.value.slice(1), 10);
-
+    const handleExchangeToChange = (value: number): void => {
         setExchangeToValue(value);
 
         if (rates) {
@@ -152,7 +148,7 @@ export const PageExchange: FC = () => {
 
                             <Input
                                 prefix={currencies[currencyFrom]}
-                                onChange={handleExchangeFromChange}
+                                setValue={handleExchangeFromChange}
                                 testId="exchangeFromInput"
                                 value={exchangeFromValue}
                             />
@@ -172,7 +168,7 @@ export const PageExchange: FC = () => {
 
                             <Input
                                 prefix={currencies[currencyTo]}
-                                onChange={handleExchangeToChange}
+                                setValue={handleExchangeToChange}
                                 testId="exchangeToInput"
                                 value={exchangeToValue}
                             />

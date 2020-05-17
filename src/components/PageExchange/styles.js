@@ -20,7 +20,7 @@ export const Text = styled.p`
 export const Grid = styled.div`
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: 120px 20px 1fr;
+    grid-template-columns: 90px 20px minmax(100px, 1fr);
     padding: 0 0 1rem;
 `;
 
