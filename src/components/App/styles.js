@@ -26,9 +26,10 @@ export const Wrapper = styled.div`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
     margin: 0 auto;
     max-width: 375px;
+    min-height: 600px;
     padding: 0 1rem;
     position: relative;
 `;
