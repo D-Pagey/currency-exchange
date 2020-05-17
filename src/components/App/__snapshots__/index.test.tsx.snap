@@ -2,7 +2,7 @@
 
 exports[`App component should render 1`] = `
 <div
-  class="sc-fzpjYC strXD"
+  class="sc-fzpjYC cAhIAY"
 >
   <header
     class="sc-fzoXzr gTRuHK"
@@ -260,7 +260,7 @@ exports[`App component should render 1`] = `
       href="/"
     >
       <button
-        class="sc-AxgMl sc-AxheI jxstGT"
+        class="sc-AxgMl sc-AxheI dquJFZ"
         type="button"
       >
         Home Page
@@ -270,7 +270,7 @@ exports[`App component should render 1`] = `
       href="/exchange"
     >
       <button
-        class="sc-AxgMl sc-AxheI jxstGT"
+        class="sc-AxgMl sc-AxheI dquJFZ"
         type="button"
       >
         Exchange Page

@@ -83,20 +83,24 @@ export const PageExchange: FC = () => {
     };
 
     const handleExchangeFromChange = (value: number): void => {
-        setExchangeFromValue(value);
+        if (value) {
+            setExchangeFromValue(Number(value.toFixed(2)));
 
-        if (rates) {
-            const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates.currencies, value);
-            setExchangeToValue(convertedValue);
+            if (rates) {
+                const convertedValue = getValueFromRates(currencyFrom, currencyTo, rates.currencies, value);
+                setExchangeToValue(Number(convertedValue.toFixed(2)));
+            }
         }
     };
 
     const handleExchangeToChange = (value: number): void => {
-        setExchangeToValue(value);
+        if (value) {
+            setExchangeToValue(Number(value.toFixed(2)));
 
-        if (rates) {
-            const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates.currencies, value);
-            setExchangeFromValue(convertedValue);
+            if (rates) {
+                const convertedValue = getValueFromRates(currencyTo, currencyFrom, rates.currencies, value);
+                setExchangeFromValue(Number(convertedValue.toFixed(2)));
+            }
         }
     };
 
@@ -110,10 +114,13 @@ export const PageExchange: FC = () => {
 
     const handleExchange = (): void => {
         if (exchangeFromValue && exchangeToValue) {
+            const roundedFrom = Number((accounts[currencyFrom] - exchangeFromValue).toFixed(2));
+            const roundedTo = Number((accounts[currencyTo] + exchangeToValue).toFixed(2));
+
             const updatedAccounts = {
                 ...accounts,
-                [currencyFrom]: accounts[currencyFrom] - exchangeFromValue,
-                [currencyTo]: accounts[currencyTo] + exchangeToValue,
+                [currencyFrom]: roundedFrom,
+                [currencyTo]: roundedTo,
             };
 
             setAccounts(updatedAccounts);
