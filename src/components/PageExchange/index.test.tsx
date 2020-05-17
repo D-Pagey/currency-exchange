@@ -3,6 +3,7 @@ import axios from 'axios';
 import userEvent from '@testing-library/user-event';
 import { render, waitFor } from '../../test-utils';
 import { PageExchange } from '.';
+import { isToday } from 'date-fns';
 
 jest.mock('axios');
 
@@ -76,6 +77,43 @@ describe('PageExchange component', () => {
         await waitFor(() => expect(inputFrom.value).toEqual(converted));
     });
 
-    it.todo('should handle swap');
-    it.todo('should handle exchanging currencies');
+    it('should handle swap', async () => {
+        mockedAxios.get.mockResolvedValue(mockResponse);
+
+        const { getByTestId, getByText } = render(<PageExchange />, context);
+        await waitFor(() => getByTestId('pageExchangeForm'));
+
+        const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
+        const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
+        const value = '10';
+        const swapped = '$1.00';
+
+        userEvent.type(inputFrom, value);
+
+        userEvent.click(getByText('Swap'));
+
+        await waitFor(() => expect(inputTo.value).toEqual(swapped));
+    });
+
+    it('should handle exchanging currencies', async () => {
+        mockedAxios.get.mockResolvedValue(mockResponse);
+
+        const setAccounts = jest.fn();
+
+        const { getByTestId, getByText } = render(<PageExchange />, { ...context, setAccounts });
+        await waitFor(() => getByTestId('pageExchangeForm'));
+
+        const inputFrom = getByTestId('exchangeFromInput') as HTMLInputElement;
+        const inputTo = getByTestId('exchangeToInput') as HTMLInputElement;
+        const value = '10';
+        const converted = '$2.00';
+
+        userEvent.type(inputTo, value);
+
+        await waitFor(() => expect(inputFrom.value).toEqual(converted));
+
+        userEvent.click(getByText('Exchange'));
+
+        expect(setAccounts).toHaveBeenCalledWith({ GBP: 51, USD: 48 });
+    });
 });
